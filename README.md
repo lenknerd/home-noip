@@ -1,7 +1,7 @@
 David Lenkner's Home Page
 =========================
 
-My home page!  Contains some professional information (resume mainly) as well as a few pages I developed just for fun.  It served from my LAMP stack at home and can be viewed at [http://lenknerd.no-ip.org](http://lenknerd.no-ip.org).
+My home page!  Contains some professional information (resume mainly) as well as a few pages I developed just for fun.  It is served from my LAMP stack at home and can be viewed at [http://lenknerd.no-ip.org](http://lenknerd.no-ip.org).
 
 The site uses [will use] the following packages;
 
