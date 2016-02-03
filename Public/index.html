@@ -35,12 +35,12 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">David Lenkner</a>
+				<a class="navbar-brand" href="#welcome">David Lenkner</a>
 			</div>
 			<div style="height: 1px;" aria-expanded="false" id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#about">Resume</a></li>
+					<li class="active"><a href="#welcome">Home</a></li>
+					<li><a href="#resume">Resume</a></li>
 					<li><a href="#contact">Contact</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Internal <span class="caret"></span></a>
@@ -60,12 +60,7 @@
 	</nav>
 
 	<!-- Begin page content -->
-	<div class="container">
-		<div class="page-header">
-			<h1>Welcome!</h1>
-		</div>
-		<p class="lead">You've reached David Lenkner's home page.  It contains my professional resum&eacute; as well as a handful of pages I've created for fun.</p>
-		<p>Thanks for visiting!</p>
+	<div class="container" id="main">
 	</div>
 
 	<!-- Footer -->
@@ -76,12 +71,23 @@
 	</footer>
 
 
-	<!-- Bootstrap core JavaScript
-	Placed at the end of the document so the pages load faster -->
+	<!-- Bootstrap core JavaScript -->
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="js/ie10-viewport-bug-workaround.js"></script>
-  
+
+	<!-- Marionette with Underscore templating -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.4.1/backbone.marionette.min.js"></script>
+
+	<!-- Router and main app for my site -->
+	<script src="js/app.js"></script>
+	<script src="js/router.js"></script>
+
+	<!-- Views javascript for the site -->
+	<script src="js/views/welcome.js"></script>
+	<script src="js/views/contact.js"></script>
 
 </body></html>
