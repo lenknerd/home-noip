@@ -88,9 +88,8 @@ app.on("start", function() {
 		Backbone.history.start();
 		
 		/* Generate and attach menubar -- this one stays and is never killed,
-		 * though may be re-rendered possibly */
-		// Not yet
-		// app.views.menuView = new app.views.MenuView();
+		 * and is attached without using the fade in/out functions */
+		app.views.navbarView = new app.views.NavbarView();
 			
 		// Start up on home page
 		app.router.navigate('welcome', {trigger: true});
