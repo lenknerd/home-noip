@@ -17,4 +17,9 @@ Thanks to their creators for making these available!
 
 This site is currently under construction and there is much to do... in no particular order,
 
-* Make the site.  It is just started, nothing but this readme file.
+* Implement log-in page to link via https (check if https)
+* Implement users table to check against, with hashing
+* Create cookie upon log-in
+* Put in authentication middleware for views
+	* Could just indicate needs authentication by putting "internal" in name
+* As internal page, implement commute logging project
