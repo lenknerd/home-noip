@@ -9,6 +9,7 @@ The site uses [will use] the following packages;
 * Twitter's [Bootstrap](http://getbootstrap.com/)
 * [Backbone Marionette](http://marionettejs.com/)
 * [js-cookie](https://github.com/js-cookie/js-cookie)
+* [Slim](http://www.slimframework.com/)
 
 Thanks to their creators for making these available!
 
