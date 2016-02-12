@@ -26,7 +26,7 @@ var app = Marionette.Application.extend({
 			var tplNames = view.prototype.templateLoadFuncs;
 			$.each( tplNames, function(j, tplName) {
 				// Each template file has same name as the template function for it
-				deferreds.push($.get('html/' + tplName + '.html', function(data) {
+				deferreds.push($.get('api.php/tpl/' + tplName, function(data) {
 					view.prototype[tplName] = _.template(data);
 				}, 'html'));
 			});

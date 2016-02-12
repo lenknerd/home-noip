@@ -11,7 +11,15 @@ require 'vendor/autoload.php';
 
 $app = new \Slim\App;
 
-// ...
+// Route for getting an html template for use in a view
+$app->get('/tpl/{name}', function($request, $response, $args) {
+	$templateName = $request->getAttribute('name');
+	$htdoc = new DOMDocument();
+	$htdoc->loadHTMLFile("./html/${templateName}.html");
+	echo $htdoc->saveHTML();
+
+	// Eventually put in middleware for authenticating internal views...	+++
+});
 
 
 $app->run();
