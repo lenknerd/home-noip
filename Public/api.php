@@ -16,6 +16,10 @@ $app->get('/tpl/{name}', function($request, $response, $args) {
 	$templateName = $request->getAttribute('name');
 	$htdoc = new DOMDocument();
 	$htdoc->loadHTMLFile("./html/${templateName}.html");
+
+	// +++ Any actions to modify html based on conditions?
+	
+
 	echo $htdoc->saveHTML();
 
 	// Eventually put in middleware for authenticating internal views...	+++

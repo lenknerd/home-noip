@@ -21,6 +21,7 @@ app.views.NavbarView = Marionette.View.extend({
 	},
 	
 	events: {
+		
 	},
 	
 	// Not planning on using close, just for consistency here...
