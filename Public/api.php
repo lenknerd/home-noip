@@ -8,6 +8,7 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
+require 'php/templateSpecifics.php';
 
 $app = new \Slim\App;
 
@@ -17,12 +18,11 @@ $app->get('/tpl/{name}', function($request, $response, $args) {
 	$htdoc = new DOMDocument();
 	$htdoc->loadHTMLFile("./html/${templateName}.html");
 
-	// +++ Any actions to modify html based on conditions?
-	
+	// Special view-specific handling
+	handleTemplateSpecifics($request, $response, $args, $templateName);
 
+	// Return document to client
 	echo $htdoc->saveHTML();
-
-	// Eventually put in middleware for authenticating internal views...	+++
 });
 
 

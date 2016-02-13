@@ -90,9 +90,14 @@ app.on("start", function() {
 		/* Generate and attach menubar -- this one stays and is never killed,
 		 * and is attached without using the fade in/out functions */
 		app.views.navbarView = new app.views.NavbarView();
-			
-		// Start up on home page
-		app.router.navigate('welcome', {trigger: true});
+		
+		// Check if we are here via https.  If so, try to log in
+		if(window.location.protocol == "https:") {
+			app.router.navigate('logIn', {trigger: true});
+		} else {	
+			// Otherwise start up on home page
+			app.router.navigate('welcome', {trigger: true});
+		}
 	});
 });
 

@@ -11,7 +11,8 @@ app.router = Marionette.AppRouter.extend({
 	// Define all of the page routes and the corresponding router function call
 	routes: {
 		"welcome" : "welcome",
-		"contact" : "contact"
+		"contact" : "contact",
+		"logIn"   : "logIn"
 	},
 	
 	// Initialize - called when the router starts up, nothing here for now
@@ -29,6 +30,12 @@ app.router = Marionette.AppRouter.extend({
 	contact: function() {
 		console.log("Navigating to contact info page...");
 		app.showMainView(new app.views.ContactView());
+	},
+
+	// Log-in page
+	logIn: function() {
+		console.log("Navigating to the log-in page...");
+		app.showMainView(new app.views.LogInPortalView());
 	}
 
 });
