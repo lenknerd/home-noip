@@ -16,10 +16,11 @@ $app = new \Slim\App;
 $app->get('/tpl/{name}', function($request, $response, $args) {
 	$templateName = $request->getAttribute('name');
 	$htdoc = new DOMDocument();
+	$htdoc->validateOnParse = true;
 	$htdoc->loadHTMLFile("./html/${templateName}.html");
 
 	// Special view-specific handling
-	handleTemplateSpecifics($request, $response, $args, $templateName);
+	handleTemplateSpecifics($request, $response, $args, $templateName, $htdoc);
 
 	// Return document to client
 	echo $htdoc->saveHTML();

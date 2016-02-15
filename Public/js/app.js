@@ -90,6 +90,7 @@ app.on("start", function() {
 		/* Generate and attach menubar -- this one stays and is never killed,
 		 * and is attached without using the fade in/out functions */
 		app.views.navbarView = new app.views.NavbarView();
+		app.views.navbarView.render();
 		
 		// Check if we are here via https.  If so, try to log in
 		if(window.location.protocol == "https:") {
