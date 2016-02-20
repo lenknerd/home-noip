@@ -5,6 +5,8 @@
  * David Lenkner, c. 2016
  */
 
-
+function validate($unm, $pwd) {
+	// Try getting user from database based
+}
 
 ?>
