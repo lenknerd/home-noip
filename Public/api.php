@@ -8,7 +8,8 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 require 'vendor/autoload.php';
-require 'php/templateSpecifics.php';
+require_once 'php/templateSpecifics.php';
+require_once 'php/authentication.php';
 
 $app = new \Slim\App;
 
@@ -24,6 +25,13 @@ $app->get('/tpl/{name}', function($request, $response, $args) {
 
 	// Return document to client
 	echo $htdoc->saveHTML();
+});
+
+// Route for attempting to log in
+$app->post('/login', function() {
+	/* +++ TODO put in function call here, create standard request struc and
+	 * methods to convert to JSON and back and whatnot, as in other site
+	 */
 });
 
 
