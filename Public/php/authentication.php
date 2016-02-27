@@ -45,6 +45,11 @@ function createLogInSession($uname, $phash) {
 	$_SESSION["phash"] = $phash;
 }
 
+// Just return username
+function getSessionUserName() {
+	return $_SESSION["uname"];
+}
+
 // Kill log-in session
 function endLogInSession() {
 	// Remove all session variables

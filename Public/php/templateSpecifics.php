@@ -40,6 +40,11 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 			$loginlink = $htdoc->getElementById("login");
 			$loginlink->setAttribute("href", $secureURL);
 			break;
+		case "loggedInWelcomeTemplate";
+			// Put in welcome message to specific username
+			$wtx = "Welcome " . getSessionUserName() . "!";
+			$doc->getElementsById("welcUser")->item(0)->nodeValue = $wtx;
+
 	}
 
 }
