@@ -16,17 +16,17 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 	/* If we're an internal-only template, will be inside /internal/ folder.
 	 * List them here so can validate and look in there
 	 */
-	$internalPages = ["loggedInWelcome"];
-	if( in_array($tplname, $internalPages) ) {
+	$internalPages = ["loggedInWelcomeTemplate"];
+	if( in_array($tplName, $internalPages) ) {
 		if( hasValidSession() ) {
-			$htdoc->loadHTMLFile("./html/internal/${templateName}.html");
+			$htdoc->loadHTMLFile("./html/internal/${tplName}.html");
 		} else {
 			// Read in the unauthorized access deal
 			$htdoc->loadHTMLFile("./html/unauthorizedTemplate.html");
 		}
 	} else {
 		// If not an internal page, no need to check session
-		$htdoc->loadHTMLFile("./html/${templateName}.html");
+		$htdoc->loadHTMLFile("./html/${tplName}.html");
 	}
 
 	// A few details specific to individual views
