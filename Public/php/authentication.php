@@ -5,7 +5,8 @@
  * David Lenkner, c. 2016
  */
 
-function validate($unm, $pwd) {
+// Validate username and password against database, create session if valid
+function validateAndCreateSession($unm, $pwd) {
 	// Connect to database and declare a query
 	$conn = getDatabaseConnection();
 

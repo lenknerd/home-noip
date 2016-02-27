@@ -18,9 +18,8 @@ $app->get('/tpl/{name}', function($request, $response, $args) {
 	$templateName = $request->getAttribute('name');
 	$htdoc = new DOMDocument();
 	$htdoc->validateOnParse = true;
-	$htdoc->loadHTMLFile("./html/${templateName}.html");
 
-	// Special view-specific handling
+	// Special view-specific handling... loads some template from file
 	handleTemplateSpecifics($request, $response, $args, $templateName, $htdoc);
 
 	// Return document to client
@@ -29,15 +28,11 @@ $app->get('/tpl/{name}', function($request, $response, $args) {
 
 // Route for attempting to log in
 $app->post('/login', function() {
-	/* +++ TODO put in function call here, create standard request struc and
-	 * methods to convert to JSON and back and whatnot, as in other site
-	 */
+	validateAndCreateSession($_POST['username'], $_POST['password']);
 });
 
 
+// Run the application finally
 $app->run();
-
-
-
 
 ?>
