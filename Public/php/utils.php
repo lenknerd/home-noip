@@ -49,6 +49,7 @@ abstract class JsonResponse {
 	}
 }
 
+
 /* Simple instance of above abstract class, specific data is string with
  * default empty string
  */
@@ -83,7 +84,7 @@ function getDatabaseConnection() {
 		$eMsg->respondAndExit();
 	}
 
-	return $conn
+	return $conn;
 }
 
 ?>

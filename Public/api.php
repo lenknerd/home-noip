@@ -10,6 +10,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require 'vendor/autoload.php';
 require_once 'php/templateSpecifics.php';
 require_once 'php/authentication.php';
+require_once 'php/utils.php';
 
 $app = new \Slim\App;
 

@@ -39,7 +39,7 @@ app.views.LogInPortalView = Marionette.View.extend({
 		console.log("Submitting log in request...");
 		$.ajax({
 			type: 'POST',
-			url: app.servBaseURL_s + '/login',
+			url: 'api.php/login',
 			data: JSON.stringify(uAndP),
 			dataType: 'json',
 			success: function(data) {
