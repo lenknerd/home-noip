@@ -32,6 +32,7 @@ function validateAndCreateSession($unm, $pwd) {
 	$phash = $wps[0][0];
 	if( password_verify( $pwd, $phash ) ) {
 		$rsp->setSuccessful();
+		$rsp->specificString = $unm; // Put user name in specific string
 		// If successful also create session
 		createLogInSession($unm, $phash);
 	}
