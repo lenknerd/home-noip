@@ -19,6 +19,8 @@ app.views.LogInPortalView = Marionette.View.extend({
 	},
 	
 	events: {
+		'click .subm' : 'sendUp',
+		'click .nmind' : 'goHomeHTTP'
 	},
 	
 	// Empty out main element
@@ -26,5 +28,32 @@ app.views.LogInPortalView = Marionette.View.extend({
 		this.undelegateEvents();
 		$(this).empty();
 		this.unbind();
+	},
+
+	// Event on trying to log in
+	sendUp: function() {
+		var uAndP = {
+			'username': $('#userName').val(),
+			'password': $('#password').val()
+		};
+		console.log("Submitting log in request...");
+		$.ajax({
+			type: 'POST',
+			url: app.servBaseURL_s + '/login',
+			data: JSON.stringify(uAndP),
+			dataType: 'json',
+			success: function(data) {
+				console.log("Log-in request returned.");
+				console.log(data);
+				// +++ continue....
+			}
+		});
+	},
+
+	// Event on cancel, go back to standard http home
+	goHomeHTTP: function() {
+		var fullurl = window.location.href;
+		window.location.href = fullurl.replace('https','http');
 	}
+
 });

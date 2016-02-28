@@ -12,7 +12,8 @@ app.router = Marionette.AppRouter.extend({
 	routes: {
 		"welcome" : "welcome",
 		"contact" : "contact",
-		"logIn"   : "logIn"
+		"logIn"   : "logIn",
+		"welcomeUser" : "welcomeUser"
 	},
 	
 	// Initialize - called when the router starts up, nothing here for now
@@ -36,6 +37,12 @@ app.router = Marionette.AppRouter.extend({
 	logIn: function() {
 		console.log("Navigating to the log-in page...");
 		app.showMainView(new app.views.LogInPortalView());
+	},
+
+	// This is the welcome page except only for those logged in...
+	welcomeUser: function() {
+		console.log("Navidating to the user welcome page...");
+		app.showMainView(new app.views.UserWelcomeView());
 	}
 
 });

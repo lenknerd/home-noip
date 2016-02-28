@@ -15,6 +15,7 @@ var app = Marionette.Application.extend({
 	views: {}, // The views-to-be
 	
 	servBaseURL: "", // Base route of web service
+	servBaseURL_s: "", // Same but with https method
 
 	/* This loads all templates specified in view members of app.
 	 * Good to get all template loads out of way at start. */
@@ -74,7 +75,8 @@ var app = new app();
  */
 app.on("start", function() {
 	// Set up base url of web service (test mode for now)
-	app.servBaseURL = 'http://' + location.host + '/home/';
+	app.servBaseURL = 'http://' + location.host;
+	app.servBaseURL_s = 'https://' + location.host;
 	console.log("Started with servBaseURL " + app.servBaseURL);
 	
 	// Load all templates, and when done...
