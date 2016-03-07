@@ -21,7 +21,7 @@ function validateAndCreateSession($unm, $pwd) {
 	$conn = null;
 
 	// A response that will be used below... let default be no-good
-	$rsp = JsonResponse_Str("Invalid username or password.");
+	$rsp = new JsonResponse_Str("Invalid username or password.");
 
 	// If no users available, send that err
 	if( count($wps) == 0 ) {

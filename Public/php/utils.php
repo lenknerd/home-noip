@@ -74,13 +74,19 @@ function getDatabaseConnection() {
 	// Create connection
 	$conn = null;
 	try {
-		$conn = new PDO("mysql:host=$servername;dbname=$db_dbasname",
-			$username, $password);
+		$conn = new PDO("mysql:host=$db_srvrname;dbname=$db_dbasname",
+			$db_username, $db_password);
 		// set the PDO error mode to exception
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	} catch(PDOException $e) {
 		// On error, this returns success false
-		$eMsg = new JsonResponse_Str( $e->getMessage() );
+		$eMsgStr = "Getting connection to DB, error: " . $e->getMessage();
+		$eMsg = new JsonResponse_Str( $eMsgStr );
+		$eMsg->respondAndExit();
+	}
+
+	if($conn === FALSE) {
+		$eMsg = new JsonResponse_Str( "Database connect crash and burn!" );
 		$eMsg->respondAndExit();
 	}
 
