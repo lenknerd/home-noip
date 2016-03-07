@@ -21,7 +21,12 @@ app.views.NavbarView = Marionette.View.extend({
 	},
 	
 	events: {
-		
+		'click li' : 'hideSelf'
+	},
+
+	// Hide the navbar whenever you click in it
+	hideSelf: function() {
+		$('.navbar-collapse').collapse('hide');
 	},
 	
 	// Not planning on using close, just for consistency here...
