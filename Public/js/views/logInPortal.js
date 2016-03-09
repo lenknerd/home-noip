@@ -50,8 +50,10 @@ app.views.LogInPortalView = Marionette.View.extend({
 					app.router.navigate('welcomeUser', {trigger: true} );
 				} else {
 					console.log("Something went wrong with log-in.");
-					var warnHTML = '<strong>Log-in error!' + data.errMessage;
+					var warnHTML = '<strong>Log-in error!</strong> ';
+					warnHTML += data.errMessage;
 					$('#logInErrorAlert').html( warnHTML );
+					$('#logInErrorAlert').show();
 				}
 			}
 		});
