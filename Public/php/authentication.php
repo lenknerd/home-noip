@@ -62,6 +62,12 @@ function endLogInSession() {
 
 // Check the log-in session
 function hasValidSession() {
+
+	// See if username and password are set in session variables
+	if( $_SESSION["uname"] == null || $_SESSION["phash"] == null ) {
+		return false;
+	}
+
 	// Try connecting to database
 	$conn = getDatabaseConnection();
 

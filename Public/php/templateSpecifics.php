@@ -31,7 +31,7 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 
 	// A few details specific to individual views
 	switch($tplName) {
-		case "navbarTemplate":
+		case "navbarTemplate": {
 			// Get the home url but with https
 			$selfAddr = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 			$baseAddr = explode( '/api.php', $selfAddr )[0];
@@ -40,11 +40,14 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 			$loginlink = $htdoc->getElementById("login");
 			$loginlink->setAttribute("href", $secureURL);
 			break;
-		case "loggedInWelcomeTemplate";
-			// Put in welcome message to specific username
-			$wtx = "Welcome " . getSessionUserName() . "!";
-			$doc->getElementsById("welcUser")->item(0)->nodeValue = $wtx;
-
+		}
+		case "loggedInWelcomeTemplate"; {
+			if( hasValidSession() ) {
+				// Put in welcome message to specific username
+				$wtx = "Welcome " . getSessionUserName() . "!";
+				$htdoc->getElementsById("welcUser")->item(0)->nodeValue = $wtx;
+			}
+		}
 	}
 
 }
