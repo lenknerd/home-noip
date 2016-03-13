@@ -9,6 +9,9 @@ app.views.UserWelcomeView = Marionette.View.extend({
 	el: '#main', // Where it will go in index.html
 	
 	templateLoadFuncs: ['loggedInWelcomeTemplate'],
+
+	// This view requires authentication, enforced by server by indicated here
+	requiresAuth: true,
 	
 	initialize: function() {
 	},

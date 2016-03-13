@@ -44,10 +44,16 @@ app.views.LogInPortalView = Marionette.View.extend({
 			data: uAndP,
 			dataType: 'json',
 			success: function(data) {
+				// Note this is success of the query, not necessarily log-in...
 				console.log("Log-in request returned.");
 				if(data.success) {
+					// Here's where we know username/password is correct
 					console.log("Log-in info was right.");
-					app.router.navigate('welcomeUser', {trigger: true} );
+					// Reload the login-required templates...
+					app.loadTemplates( function() {
+						// And when done, go to the welcomeUser page
+						app.router.navigate('welcomeUser', {trigger: true} );
+					}, true);
 				} else {
 					console.log("Something went wrong with log-in.");
 					var warnHTML = '<strong>Log-in error!</strong> ';

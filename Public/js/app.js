@@ -18,11 +18,16 @@ var app = Marionette.Application.extend({
 	servBaseURL_s: "", // Same but with https method
 
 	/* This loads all templates specified in view members of app.
-	 * Good to get all template loads out of way at start. */
-	loadTemplates: function(runWhenDone) {
+	 * Good to get all template loads out of way at start.
+	 * called again with reload-secure = true */
+	loadTemplates: function(runWhenDone, reloadSecure = false) {
 		var deferreds = [];
 		// Looping through all views in app (app.views)...
 		$.each( app.views, function(i, view) {
+			// If you're only reloading secure views, skip ones where no auth req
+			if(reloadSecure && !(view.prototype.requiresAuth) ) {
+				continue;
+			}
 			// Loop through names of templates used in that
 			var tplNames = view.prototype.templateLoadFuncs;
 			$.each( tplNames, function(j, tplName) {
