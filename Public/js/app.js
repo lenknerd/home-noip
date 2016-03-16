@@ -25,14 +25,17 @@ var app = Marionette.Application.extend({
 		// Looping through all views in app (app.views)...
 		$.each( app.views, function(i, view) {
 			// If you're only reloading secure views, skip ones where no auth req
+			var noCache = "?reload=1";
 			if(reloadSecure && !(view.prototype.requiresAuth) ) {
-				continue;
+				return true; // Like "continue" but for jQuery .each
+				noCache = "";
 			}
 			// Loop through names of templates used in that
 			var tplNames = view.prototype.templateLoadFuncs;
 			$.each( tplNames, function(j, tplName) {
 				// Each template file has same name as the template function for it
-				deferreds.push($.get('api.php/tpl/' + tplName, function(data) {
+				var tplURL = 'api.php/tpl/' + tplName + noCache;
+				deferreds.push($.get(tplURL, function(data) {
 					view.prototype[tplName] = _.template(data);
 				}, 'html'));
 			});
@@ -96,8 +99,8 @@ app.on("start", function() {
 		
 		/* Generate and attach menubar -- this one stays and is never killed,
 		 * and is attached without using the fade in/out functions */
-		app.views.navbarView = new app.views.NavbarView();
-		app.views.navbarView.render();
+		app.navbarView = new app.views.NavbarView();
+		app.navbarView.render();
 		
 		// Check if we are here via https.  If so, try to log in
 		if(window.location.protocol == "https:") {
