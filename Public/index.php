@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +25,6 @@
 </head>
 
 <body>
-
 
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-default navbar-fixed-top" id="fixednavbar">

@@ -79,16 +79,15 @@ function hasValidSession() {
 	$statement->execute(array(':username' => $_SESSION["uname"]));
 	$wps = $statement->fetchAll();
 
-	// If no users available, send that err
+	// If no users available, can't be a valid session...
 	if( count($wps) == 0 ) {
-		$rsp = JsonResponse_Str("Invalid username in session.");
-		$rsp->respondAndExit();
+		return false;
 	}
 
 	// Get hashed password (could check that only one user exists, but okay)
 	$phash = $wps[0][0];
 	// If equal to session var then fine
-	return ($pash == $_SESSION["phash"]);
+	return ($phash == $_SESSION["phash"]);
 }
 
 ?>

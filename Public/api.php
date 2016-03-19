@@ -1,4 +1,5 @@
 <?php
+session_start();
 /* api.php
  * Main server-side API for application, directs requests to proper
  * php function, also will handle authentication via Slim middleware
