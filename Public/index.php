@@ -19,8 +19,11 @@
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
-	<!-- Custom styles for this template -->
+	<!-- Styles for the sticky footer template -->
 	<link href="css/sticky-footer-navbar.css" rel="stylesheet">
+
+	<!-- My styles (David Lenker's) custom to my home page site -->
+	<link href="css/home.css" rel="stylesheet">
 
 </head>
 
