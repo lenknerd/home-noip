@@ -21,7 +21,7 @@ app.views.NavbarView = Marionette.View.extend({
 	},
 	
 	events: {
-		'click li' : 'hideSelf'
+		'click .gohide' : 'hideSelf'
 	},
 
 	// Hide the navbar whenever you click in it

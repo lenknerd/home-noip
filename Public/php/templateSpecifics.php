@@ -45,7 +45,7 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 			if( hasValidSession() ) {
 				// Put in welcome message to specific username
 				$wtx = "Welcome " . getSessionUserName() . "!";
-				$htdoc->getElementsById("welcUser")->item(0)->nodeValue = $wtx;
+				$htdoc->getElementById("welcUser")->nodeValue = $wtx;
 			}
 		}
 	}
