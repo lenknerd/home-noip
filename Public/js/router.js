@@ -1,6 +1,5 @@
 /*
  * router.js
- *
  * Handles switching between "pages" on the site, despite that we never
  * actually reload the entire page.
  */
@@ -23,24 +22,28 @@ app.router = Marionette.AppRouter.extend({
 	
 	// This is the main welcome page...
 	welcome: function() {
+		app.navBarSelectHome();
 		console.log('Navigating to main welcome page...');
 		app.showMainView(new app.views.WelcomeView());
 	},
 
 	// Page for contact info
 	contact: function() {
+		app.navBarSelectContact();
 		console.log("Navigating to contact info page...");
 		app.showMainView(new app.views.ContactView());
 	},
 
 	// Log-in page
 	logIn: function() {
+		app.navBarSelectInternal();
 		console.log("Navigating to the log-in page...");
 		app.showMainView(new app.views.LogInPortalView());
 	},
 
 	// This is the welcome page except only for those logged in...
 	welcomeUser: function() {
+		app.navBarSelectHome();
 		console.log("Navidating to the user welcome page...");
 		app.showMainView(new app.views.UserWelcomeView());
 	}

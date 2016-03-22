@@ -71,6 +71,32 @@ var app = Marionette.Application.extend({
 		ap.mainView.render();
 		ap.mainView.$el.fadeIn(duratn);
 		$(".footer").fadeIn(duratn/2);
+	},
+
+	/* Used to set navigation bar highlighted item (just visual) */
+	navBarSelectHome: function() {
+		this.navBarSelectNone();
+		app.navbarView.$('#homecat').addClass('active');
+	},
+
+	navBarSelectResume: function() {
+		this.navBarSelectNone();
+		app.navbarView.$('#resumecat').addClass('active');
+	},
+
+	navBarSelectContact: function() {
+		this.navBarSelectNone();
+		app.navbarView.$('#contactcat').addClass('active');
+	},
+
+	navBarSelectInternal: function() {
+		this.navBarSelectNone();
+		app.navbarView.$('#internalcat').addClass('active');
+	},
+
+	/* Clears previous highlighted item in navbar (just visual) */
+	navBarSelectNone: function() {
+		app.navbarView.$('li').removeClass('active');
 	}
 });
 
@@ -90,18 +116,19 @@ app.on("start", function() {
 	// Load all templates, and when done...
 	app.loadTemplates( function() {
 		console.log("Okay, done loading templates...");
+
+		/* Generate and attach menubar -- this one stays and is never killed,
+		 * and is attached without using the fade in/out functions */
+		app.navbarView = new app.views.NavbarView();
+		app.navbarView.render();
+
 		// Start the router (this handles page navigation)
 		app.router = new app.router();
 
 		/* This keeps track of #locations so you can use back button
 		 * even though there aren't any full-page refreshes */
 		Backbone.history.start();
-		
-		/* Generate and attach menubar -- this one stays and is never killed,
-		 * and is attached without using the fade in/out functions */
-		app.navbarView = new app.views.NavbarView();
-		app.navbarView.render();
-		
+				
 		// Check if we are here via https.  If so, try to log in
 		if(window.location.protocol == "https:") {
 			app.router.navigate('logIn', {trigger: true});
