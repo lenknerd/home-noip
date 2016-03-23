@@ -30,16 +30,14 @@ var app = Marionette.Application.extend({
 		// Looping through all views in app (app.views)...
 		$.each( app.views, function(i, view) {
 			// If you're only reloading secure views, skip ones where no auth req
-			// var noCache = "?reload=1";
 			if(reloadSecure && !(view.prototype.requiresAuth) ) {
 				return true; // Like "continue" but for jQuery .each
-				// noCache = "";
 			}
 			// Loop through names of templates used in that
 			var tplNames = view.prototype.templateLoadFuncs;
 			$.each( tplNames, function(j, tplName) {
 				// Each template file has same name as the template function for it
-				var tplURL = 'api.php/tpl/' + tplName; // noCache;
+				var tplURL = 'api.php/tpl/' + tplName;
 				deferreds.push($.get(tplURL, function(data) {
 					view.prototype[tplName] = _.template(data);
 				}, 'html'));

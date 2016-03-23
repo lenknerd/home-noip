@@ -33,8 +33,13 @@ $app->post('/login', function() {
 	validateAndCreateSession($_POST['username'], $_POST['password']);
 });
 
+// Route for logging out
+$app->get('/logout', function() {
+	endLogInSession();
+});
 
-// Run the application finally
+
+// Run the application
 $app->run();
 
 ?>

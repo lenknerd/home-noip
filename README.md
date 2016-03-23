@@ -16,7 +16,8 @@ Thanks to their creators for making these available!
 
 This site is currently under construction and there is much to do... in no particular order,
 
-* Figure out bug with logged-in welcome template get
-* Fix bug where hit drop-down section of menu and hides nav dropdown
+* Put in so goes to user welcome if logged in whenever home click
+	* Also track log-in status locally in addition to server so don't have to
+	  query that whenever you make decisions like this
 * Put in sanitization of user name
 * As internal page, implement commute logging project

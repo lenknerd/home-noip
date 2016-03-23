@@ -44,7 +44,18 @@ app.router = Marionette.AppRouter.extend({
 
 	// Log-out route, then goes to welcome page
 	logOut: function() {
-		
+		console.log("Logging out.");
+		$.ajax({
+			type: 'GET',
+			url: 'api.php/logout',
+			success: function(data) {
+				console.log("Log-out request successful.");
+			},
+			complete: function(data) {
+				// Whether or not successful, go ahead and navigate hom
+				app.router.navigate('welcome', {trigger: true});
+			}
+		});
 	},
 
 	// This is the welcome page except only for those logged in...
