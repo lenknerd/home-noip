@@ -12,6 +12,7 @@ app.router = Marionette.AppRouter.extend({
 		"welcome" : "welcome",
 		"contact" : "contact",
 		"logIn"   : "logIn",
+		"logOut"  : "logOut",
 		"welcomeUser" : "welcomeUser"
 	},
 	
@@ -39,6 +40,11 @@ app.router = Marionette.AppRouter.extend({
 		app.navBarSelectInternal();
 		console.log("Navigating to the log-in page...");
 		app.showMainView(new app.views.LogInPortalView());
+	},
+
+	// Log-out route, then goes to welcome page
+	logOut: function() {
+		
 	},
 
 	// This is the welcome page except only for those logged in...
