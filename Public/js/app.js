@@ -20,7 +20,12 @@ var app = Marionette.Application.extend({
 	/* This loads all templates specified in view members of app.
 	 * Good to get all template loads out of way at start.
 	 * called again with reload-secure = true */
-	loadTemplates: function(runWhenDone, reloadSecure = false) {
+	loadTemplates: function(runWhenDone, reloadSecure) {
+		if(reloadSecure === undefined) {
+			reloadSecure = false;
+		} else {
+			reloadSecure = true;
+		}
 		var deferreds = [];
 		// Looping through all views in app (app.views)...
 		$.each( app.views, function(i, view) {
