@@ -12,8 +12,7 @@ app.router = Marionette.AppRouter.extend({
 		"welcome" : "welcome",
 		"contact" : "contact",
 		"logIn"   : "logIn",
-		"logOut"  : "logOut",
-		"welcomeUser" : "welcomeUser"
+		"logOut"  : "logOut"
 	},
 	
 	// Initialize - called when the router starts up, nothing here for now
@@ -25,7 +24,13 @@ app.router = Marionette.AppRouter.extend({
 	welcome: function() {
 		app.navBarSelectHome();
 		console.log('Navigating to main welcome page...');
-		app.showMainView(new app.views.WelcomeView());
+		// If logged in, display the UserWelcome view
+		if(app.loggedIn) {
+			app.showMainView(new app.views.UserWelcomeView());
+		} else {
+			// Otherwise just show the normal welcome view
+			app.showMainView(new app.views.WelcomeView());
+		}
 	},
 
 	// Page for contact info
@@ -51,18 +56,16 @@ app.router = Marionette.AppRouter.extend({
 			success: function(data) {
 				console.log("Log-out request successful.");
 			},
+			error: function() {
+				console.log("Problem logging out.");
+			},
 			complete: function(data) {
 				// Whether or not successful, go ahead and navigate hom
+				app.loggedIn = false;
+				app.username = "";
 				app.router.navigate('welcome', {trigger: true});
 			}
 		});
-	},
-
-	// This is the welcome page except only for those logged in...
-	welcomeUser: function() {
-		app.navBarSelectHome();
-		console.log("Navidating to the user welcome page...");
-		app.showMainView(new app.views.UserWelcomeView());
 	}
 
 });

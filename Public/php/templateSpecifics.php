@@ -35,7 +35,7 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 			// Get the home url but with https
 			$selfAddr = $_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 			$baseAddr = explode( '/api.php', $selfAddr )[0];
-			$secureURL = 'https://' . $baseAddr;
+			$secureURL = 'https://' . $baseAddr . "/#logIn";
 			// Set the href on log in (https/http)
 			$loginlink = $htdoc->getElementById("login");
 			$loginlink->setAttribute("href", $secureURL);

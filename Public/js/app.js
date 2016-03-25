@@ -17,6 +17,12 @@ var app = Marionette.Application.extend({
 	servBaseURL: "", // Base route of web service
 	servBaseURL_s: "", // Same but with https method
 
+	/* Whether logged in.  Note, also maintained on server, server deny an
+	 * unauthorized request regardless of this variable.  The extra copy here
+	 * is just for speed, don't have to query server to decide in normal use */
+	loggedIn: false,
+	userName: "",
+
 	/* This loads all templates specified in view members of app.
 	 * Good to get all template loads out of way at start.
 	 * called again with reload-secure = true */
@@ -131,12 +137,10 @@ app.on("start", function() {
 		/* This keeps track of #locations so you can use back button
 		 * even though there aren't any full-page refreshes */
 		Backbone.history.start();
-				
-		// Check if we are here via https.  If so, try to log in
-		if(window.location.protocol == "https:") {
-			app.router.navigate('logIn', {trigger: true});
-		} else {	
-			// Otherwise start up on home page
+		
+		// Check if there is no hash in the address
+		if( ! window.location.href.includes("#") ) {
+			// Start up on home page if no route selected
 			app.router.navigate('welcome', {trigger: true});
 		}
 	});

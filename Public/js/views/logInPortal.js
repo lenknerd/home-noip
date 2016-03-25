@@ -49,10 +49,12 @@ app.views.LogInPortalView = Marionette.View.extend({
 				if(data.success) {
 					// Here's where we know username/password is correct
 					console.log("Log-in info was right.");
+					app.loggedIn = true;
+					app.userName = data.specificString;
 					// Reload the login-required templates...
 					app.loadTemplates( function() {
 						// And when done, go to the welcomeUser page
-						app.router.navigate('welcomeUser', {trigger: true} );
+						app.router.navigate('welcome', {trigger: true} );
 					}, true);
 				} else {
 					console.log("Something went wrong with log-in.");
