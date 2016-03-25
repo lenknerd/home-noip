@@ -16,8 +16,6 @@ Thanks to their creators for making these available!
 
 This site is currently under construction and there is much to do... in no particular order,
 
-* Put in so goes to user welcome if logged in whenever home click
-	* Also track log-in status locally in addition to server so don't have to
-	  query that whenever you make decisions like this
 * Put in sanitization of user name
+* Put in resume
 * As internal page, implement commute logging project
