@@ -9,10 +9,11 @@ app.router = Marionette.AppRouter.extend({
 	
 	// Define all of the page routes and the corresponding router function call
 	routes: {
-		"welcome" : "welcome",
-		"contact" : "contact",
-		"logIn"   : "logIn",
-		"logOut"  : "logOut"
+		"welcome"   : "welcome",
+		"contact"   : "contact",
+		"logIn"     : "logIn",
+		"logOut"    : "logOut",
+		"newTrip"   : "newTrip"
 	},
 	
 	// Initialize - called when the router starts up, nothing here for now
@@ -66,6 +67,13 @@ app.router = Marionette.AppRouter.extend({
 				app.router.navigate('welcome', {trigger: true});
 			}
 		});
+	},
+
+	// Start a new trip.  Requires log-in.
+	newTrip: function() {
+		app.navBarSelectInternal();
+		console.log("Navigating to the tripping page...");
+		app.showMainView(new app.views.NewTripView());
 	}
 
 });

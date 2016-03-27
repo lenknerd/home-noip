@@ -136,10 +136,12 @@ app.on("start", function() {
 
 		/* This keeps track of #locations so you can use back button
 		 * even though there aren't any full-page refreshes */
+		console.log("Starting router.");
 		Backbone.history.start();
 		
 		// Check if there is no hash in the address
 		if( ! window.location.href.includes("#") ) {
+			console.log("Detected no route, going to welcome.");
 			// Start up on home page if no route selected
 			app.router.navigate('welcome', {trigger: true});
 		}
