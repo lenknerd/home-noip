@@ -69,5 +69,6 @@
 	<script src="js/views/navbar.js"></script>
 	<script src="js/views/logInPortal.js"></script>
 	<script src="js/views/userWelcome.js"></script>
+	<script src="js/views/newTrip.js"></script>
 
 </body></html>

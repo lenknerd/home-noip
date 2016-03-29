@@ -4,7 +4,7 @@
  * David Lenkner, c. 2016
  */
 
-app.views.UserWelcomeView = Marionette.View.extend({
+app.views.NewTripView = Marionette.View.extend({
 	
 	el: '#main', // Where it will go in index.html
 	
@@ -14,6 +14,8 @@ app.views.UserWelcomeView = Marionette.View.extend({
 	requiresAuth: true,
 	
 	initialize: function() {
+		// Not logging initially
+		this.logging = false;
 	},
 	
 	render: function() {
@@ -22,6 +24,7 @@ app.views.UserWelcomeView = Marionette.View.extend({
 	},
 	
 	events: {
+		'click #start-stop-trip'   : 'startOrStopLogging'
 	},
 	
 	// Empty out main element
@@ -29,5 +32,11 @@ app.views.UserWelcomeView = Marionette.View.extend({
 		this.undelegateEvents();
 		$(this).empty();
 		this.unbind();
+	},
+
+	// Start or stop logging
+	startOrStopLogging: function() {
+		// Lastly toggle logging status
+		this.logging = ! this.logging;
 	}
 });

@@ -16,7 +16,9 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 	/* If we're an internal-only template, will be inside /internal/ folder.
 	 * List them here so can validate and look in there
 	 */
-	$internalPages = ["loggedInWelcomeTemplate"];
+	$internalPages = ["loggedInWelcomeTemplate",
+		"newTripTemplate"
+	];
 	if( in_array($tplName, $internalPages) ) {
 		if( hasValidSession() ) {
 			$htdoc->loadHTMLFile("./html/internal/${tplName}.html");
