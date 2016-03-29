@@ -20,5 +20,13 @@ function stopTrippin() {
 	$rsp->respondAndExit();
 }
 
+// Log a point
+function logAPoint() {
+	// Placeholder...
+	$rsp = new JsonResponse_Basic("Logging a point went okay.");
+	$rsp->setSuccessful();
+	$rsp->respondAndExit();
+}
+
 
 ?>

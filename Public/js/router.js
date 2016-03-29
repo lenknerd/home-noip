@@ -2,6 +2,7 @@
  * router.js
  * Handles switching between "pages" on the site, despite that we never
  * actually reload the entire page.
+ * David Lenkner, c. 2016
  */
 
  // Add the router to the main application (app)

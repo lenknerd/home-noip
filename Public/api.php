@@ -49,12 +49,17 @@ function skipIfNotLoggedIn() {
 
 // Route for starting a trip
 $app->get('/startTrip', 'skipIfNotLoggedIn', function() {
-
+	startTrippin();
 });
 
 // Route for stopping a trip
 $app->get('/stopTrip', 'skipIfNotLoggedIn', function() {
+	stopTripping();
+});
 
+// Route for logging a point during a trip
+$app->post('/logPoint', 'skipIfNotLoggedIn', function() {
+	logAPoint();
 });
 
 

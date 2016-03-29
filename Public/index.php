@@ -71,4 +71,7 @@
 	<script src="js/views/userWelcome.js"></script>
 	<script src="js/views/newTrip.js"></script>
 
+	<!-- Utilities related to commute logger -->
+	<script src="js/commuteLoggerUtils.js"></script>
+
 </body></html>

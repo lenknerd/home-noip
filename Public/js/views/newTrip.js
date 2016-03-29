@@ -29,7 +29,7 @@ app.views.NewTripView = Marionette.View.extend({
 	
 	events: {
 		'click #start-stop-trip'   : 'startOrStopLogging',
-		'click #x-trip-alert'      : 'hideTripAlert'
+		'click #trip-alert .close' : 'hideTripAlert'
 	},
 	
 	// Empty out main element
@@ -45,6 +45,9 @@ app.views.NewTripView = Marionette.View.extend({
 		this.tripLogging = ! this.tripLogging;
 		// Start or stop the timer
 		var startElseStop = this.tripLogging;
+
+		// Reset count to zero
+		this.tripPointCount = 0;
 
 		// Some convenient ternaries based on above...
 		var startStopRoute = startElseStop ? 'startTrip' : 'stopTrip';
@@ -88,19 +91,49 @@ app.views.NewTripView = Marionette.View.extend({
 
 	// The function to log a point for where we are now
 	logPoint: function() {
-		// TBD
+		var thisVue = this;
+		// Get latitude, longitude, and time...
+		var allowed = getLatLongTime( function(pData) {
+			// And when you do, if you do, send that point data
+			thisVue.sendPoint(pData); 
+		});
+
+		// If user didn't consent to location data, show this
+		if( ! allowed ) {
+			thisVue.showTripAlert('Location not allowed.', 'alert-danger');
+		}
 	},
+
+	// Called in callback of above function, actually sends position/time data
+	sendPoint: function(pointData) {
+		var thisV = this;
+		$.ajax({
+			type: 'POST',
+			url: 'api.php/logPoint',
+			data: pointData,
+			dataType: 'json',
+			success: function(data) {
+				// Increment and show how many points are logged sucessfully
+				thisV.tripPointCount += 1;
+				thisV.$('#nplogged').html( thisV.tripPointCount );
+			},
+			error: function() {
+				thisVue.showTripAlert('Error sending lcoation.', 'alert-danger');
+			}
+		});
+	}
 
 	// Show a message in the alert box with given class
 	showTripAlert: function(messa, clas) {
 		this.clearAlertClass();
 		this.$('#trip-alert').addClass(clas);
-		this.$('#trip-alert').html(messa);
+		this.$('#trip-alert-text').html(messa);
 		this.$('#trip-alert').show();
 	},
 
 	// Hide the trip alert box
-	hideTripAlert: function() {
+	hideTripAlert: function(ev) {
+		ev.preventDefault(); // Don't kill it, just hide it
 		this.$('#trip-alert').hide();
 	},
 
@@ -109,5 +142,5 @@ app.views.NewTripView = Marionette.View.extend({
 		this.$('#trip-alert').removeClass('alert-success');
 		this.$('#trip-alert').removeClass('alert-danger');
 		this.$('#trip-alert').removeClass('alert-warning');
-	}}
+	}
 });
