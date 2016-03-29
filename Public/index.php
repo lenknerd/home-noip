@@ -32,7 +32,7 @@
 <body>
 
 	<!-- Fixed navbar -->
-	<nav class="navbar navbar-default navbar-fixed-top" id="fixednavbar">
+	<nav class="navbar navbar-inverse navbar-fixed-top" id="fixednavbar">
 	</nav>
 
 	<!-- Begin page content -->
