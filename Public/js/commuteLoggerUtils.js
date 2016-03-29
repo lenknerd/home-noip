@@ -9,7 +9,7 @@
 function getLatLongTime(runWhenDone) {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
-			var dat = new Date();
+			var d = new Date();
 			var tim = d.getTime();
 			var lat = position.coords.latitude;
 			var lon = position.coords.longitude;
@@ -19,6 +19,7 @@ function getLatLongTime(runWhenDone) {
 				longitude: lon
 			});
 		});
+		return true;
 	} else {
 		return false;
 	}

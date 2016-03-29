@@ -41,10 +41,17 @@ app.views.NewTripView = Marionette.View.extend({
 
 	// Start or stop logging
 	startOrStopLogging: function() {
+
 		// Toggle logging status
 		this.tripLogging = ! this.tripLogging;
 		// Start or stop the timer
 		var startElseStop = this.tripLogging;
+
+		if(startElseStop) {
+			console.log("Starting logging.");
+		} else {
+			console.log("Stopping logging.");
+		}
 
 		// Reset count to zero
 		this.tripPointCount = 0;
@@ -64,7 +71,7 @@ app.views.NewTripView = Marionette.View.extend({
 				thisView.startOrStopTimer(startElseStop);
 			},
 			error: function(data) {
-				thisView.showTripAlert('Error with request!', 'alert-danger');
+				thisView.showTripAlert('Error with start/stop!', 'alert-danger');
 			}
 		});
 	},
@@ -91,6 +98,7 @@ app.views.NewTripView = Marionette.View.extend({
 
 	// The function to log a point for where we are now
 	logPoint: function() {
+		console.log("Logging a commute point.");
 		var thisVue = this;
 		// Get latitude, longitude, and time...
 		var allowed = getLatLongTime( function(pData) {
@@ -100,12 +108,14 @@ app.views.NewTripView = Marionette.View.extend({
 
 		// If user didn't consent to location data, show this
 		if( ! allowed ) {
-			thisVue.showTripAlert('Location not allowed.', 'alert-danger');
+			thisVue.showTripAlert('Problem getting location.', 'alert-danger');
 		}
 	},
 
 	// Called in callback of above function, actually sends position/time data
 	sendPoint: function(pointData) {
+		console.log("Going to try to send this point data:");
+		console.log(pointData);
 		var thisV = this;
 		$.ajax({
 			type: 'POST',
@@ -117,11 +127,13 @@ app.views.NewTripView = Marionette.View.extend({
 				thisV.tripPointCount += 1;
 				thisV.$('#nplogged').html( thisV.tripPointCount );
 			},
-			error: function() {
-				thisVue.showTripAlert('Error sending lcoation.', 'alert-danger');
+			error: function(data) {
+				console.log('ERROR IN SENDING POINT:');
+				console.log(data);
+				thisV.showTripAlert('Error sending location.', 'alert-danger');
 			}
 		});
-	}
+	},
 
 	// Show a message in the alert box with given class
 	showTripAlert: function(messa, clas) {

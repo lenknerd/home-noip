@@ -58,7 +58,7 @@ $app->get('/stopTrip', 'skipIfNotLoggedIn', function() {
 });
 
 // Route for logging a point during a trip
-$app->post('/logPoint', 'skipIfNotLoggedIn', function() {
+$app->post('/logPoint', function() {
 	logAPoint();
 });
 
