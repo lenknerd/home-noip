@@ -2,13 +2,20 @@
 	<div class="lead">
 		Use this page to log waypoints while on a trip!
 	</div>
+
+	<div class="alert" id="trip-alert" style="display: none;">
+		<p id="trip-alert-text"></p>
+		<a href="#" id="x-trip-alert" class="close" aria-label="close">&times;</a>
+	</div>
+
 	<p class="tripping-stat">Number of Points Logged: 
 		<span id="nplogged"></span>
 	</p>
-	<p class="tripping-stat">Distance Travelled: 
+	<p class="tripping-stat">Distance Traveled: 
 		<span id="disttrav"></span>
 	</p>
-	<button type="button" id="start-stop-trip" class="btn btn-success">
+
+	<button type="button" id="start-stop-trip" class="btn btn-primary">
 		Start Trip
 	</button>
 </div>

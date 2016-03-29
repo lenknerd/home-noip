@@ -11,6 +11,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 require 'vendor/autoload.php';
 require_once 'php/templateSpecifics.php';
 require_once 'php/authentication.php';
+require_once 'php/commuteLogger.php';
 require_once 'php/utils.php';
 
 $app = new \Slim\App;
@@ -36,6 +37,24 @@ $app->post('/login', function() {
 // Route for logging out
 $app->get('/logout', function() {
 	endLogInSession();
+});
+
+// Middleware function to return empty error response if not logged in
+function skipIfNotLoggedIn() {
+	if( ! hasValidSession() ) {
+		$rsp = new JsonResponse_Basic("Authentication required for route.");
+		$rsp->respondAndExit();
+	}
+}
+
+// Route for starting a trip
+$app->get('/startTrip', 'skipIfNotLoggedIn', function() {
+
+});
+
+// Route for stopping a trip
+$app->get('/stopTrip', 'skipIfNotLoggedIn', function() {
+
 });
 
 

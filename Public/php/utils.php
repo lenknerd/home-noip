@@ -50,8 +50,17 @@ abstract class JsonResponse {
 }
 
 
-/* Simple instance of above abstract class, specific data is string with
- * default empty string
+// Simplest instance of above abstract class, no members except base stuff
+class JsonResponse_Basic extends JsonResponse {
+	// The required override... no assoc array needed here, just a simple var
+	public function specificsAssocArray() {
+		return [];
+	}
+}
+
+
+/* Next simplest instance of above abstract class, specific data is string
+ * with default empty string
  */
 class JsonResponse_Str extends JsonResponse {
 	// Some string data that may be provided with response
