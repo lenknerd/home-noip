@@ -56,12 +56,12 @@ $app->get('/startTrip', function() {
 
 // Route for stopping a trip
 $app->get('/stopTrip', function() {
-	stopTripping();
+	stopTrippin();
 })->add($RequireAuthMW);
 
 // Route for logging a point during a trip
 $app->post('/logPoint', function() {
-	logAPoint();
+	logAPoint($_POST['time'], $_POST['latitude'], $_POST['longitude']);
 })->add($RequireAuthMW);
 
 
