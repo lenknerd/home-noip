@@ -40,27 +40,29 @@ $app->get('/logout', function() {
 });
 
 // Middleware function to return empty error response if not logged in
-function skipIfNotLoggedIn() {
+$RequireAuthMW = function ($request, $response, $next) {
 	if( ! hasValidSession() ) {
 		$rsp = new JsonResponse_Basic("Authentication required for route.");
 		$rsp->respondAndExit();
 	}
-}
+	$response = $next($request, $response);
+	return $response;
+};
 
 // Route for starting a trip
-$app->get('/startTrip', 'skipIfNotLoggedIn', function() {
+$app->get('/startTrip', function() {
 	startTrippin();
-});
+})->add($RequireAuthMW);
 
 // Route for stopping a trip
-$app->get('/stopTrip', 'skipIfNotLoggedIn', function() {
+$app->get('/stopTrip', function() {
 	stopTripping();
-});
+})->add($RequireAuthMW);
 
 // Route for logging a point during a trip
 $app->post('/logPoint', function() {
 	logAPoint();
-});
+})->add($RequireAuthMW);
 
 
 // Run the application

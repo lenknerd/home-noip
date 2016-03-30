@@ -66,11 +66,21 @@ app.views.NewTripView = Marionette.View.extend({
 		$.ajax({
 			type: 'GET',
 			url: 'api.php/' + startStopRoute,
+			dataType: 'json',
 			success: function(data) {
-				thisView.showTripAlert(msgToUser,alertClass);
-				thisView.startOrStopTimer(startElseStop);
+				if(data.success) {
+					// Specific data is just the string which is the trip id
+					thisView.$('#tripid').text( data.specifics );
+					// Loggin started display in main alert box
+					thisView.showTripAlert(msgToUser,alertClass);
+					// And start the interval logging timer
+					thisView.startOrStopTimer(startElseStop);
+				} else {
+					thisView.showTripAlert(data.errMessage,'alert-danger');
+				}
 			},
-			error: function(data) {
+			error: function(r, m) {
+				console.log('Error starting:' + m);
 				thisView.showTripAlert('Error with start/stop!', 'alert-danger');
 			}
 		});
