@@ -17,7 +17,8 @@ function handleTemplateSpecifics($req, $resp, $args, $tplName, &$htdoc) {
 	 * List them here so can validate and look in there
 	 */
 	$internalPages = ["loggedInWelcomeTemplate",
-		"newTripTemplate"
+		"newTripTemplate",
+		"viewTripTemplate"
 	];
 	if( in_array($tplName, $internalPages) ) {
 		if( hasValidSession() ) {

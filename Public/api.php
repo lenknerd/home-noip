@@ -64,6 +64,11 @@ $app->post('/logPoint', function() {
 	logAPoint($_POST['time'], $_POST['latitude'], $_POST['longitude']);
 })->add($RequireAuthMW);
 
+// Route for getting information about a trip
+$app->get('/tripInfo', function() {
+	getTripInfo( $_GET['tripid'] );
+})->add($RequireAuthMW);
+
 
 // Run the application
 $app->run();

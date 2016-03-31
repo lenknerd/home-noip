@@ -73,6 +73,22 @@ class JsonResponse_Str extends JsonResponse {
 
 }
 
+/* Special response containing trip info.  Three strings, each a space-sep'd
+ * array, one for times, one for latitudes, one for longitudes. */
+class JsonResponse_TripInfo extends JsonResponse {
+	public $times = "";
+	public $lats = "";
+	public $longs = "";
+
+	// The required override...
+	public function specificsAssocArray() {
+		return (object) ['spaceSepTimes' => $this->times,
+			'spaceSepLats' => $this->lats,
+			'spaceSepLongs' => $this->longs
+		];
+	}
+}
+
 // Get database connection
 function getDatabaseConnection() {
 	$db_srvrname = "localhost";

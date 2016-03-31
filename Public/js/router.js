@@ -14,7 +14,8 @@ app.router = Marionette.AppRouter.extend({
 		"contact"   : "contact",
 		"logIn"     : "logIn",
 		"logOut"    : "logOut",
-		"newTrip"   : "newTrip"
+		"newTrip"   : "newTrip",
+		"viewTrip"  : "viewTrip"
 	},
 	
 	// Initialize - called when the router starts up, nothing here for now
@@ -75,6 +76,13 @@ app.router = Marionette.AppRouter.extend({
 		app.navBarSelectInternal();
 		console.log("Navigating to the tripping page...");
 		app.showMainView(new app.views.NewTripView());
+	},
+
+	// Look at a trip.  Requires log-in.
+	viewTrip: function() {
+		app.navBarSelectInternal();
+		console.log("Navigating to the trip-viewing page...");
+		app.showMainView(new app.views.ViewTripView());
 	}
 
 });

@@ -70,6 +70,7 @@
 	<script src="js/views/logInPortal.js"></script>
 	<script src="js/views/userWelcome.js"></script>
 	<script src="js/views/newTrip.js"></script>
+	<script src="js/views/viewTrip.js"></script>
 
 	<!-- Utilities related to commute logger -->
 	<script src="js/commuteLoggerUtils.js"></script>

@@ -88,5 +88,40 @@ function logAPoint($pTime, $pLat, $pLong) {
 	$rsp->respondAndExit();
 }
 
+// Get information on a trip
+function getTripInfo($tripId) {
+
+	$rsp = new JsonResponse_TripInfo("Problem getting trip info.");
+
+
+	// Connect to database
+	$conn = getDatabaseConnection();
+
+	// Prepare statement to get all waypoints with that tripid
+	$statement = $conn->prepare('SELECT time, latitude, longitude
+		FROM waypoints WHERE trip = :trid',
+		array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY) );
+	// Execute
+	$statement->execute(array(':trid' => $tripId));
+	$wps = $statement->fetchAll();
+
+	// Loop over results and build response data.. just space-sep'd vals
+	$timez = "";
+	$latz = "";
+	$longz = "";
+	for($i=0, $l = count($wps); $i < $l; ++$i) {
+		$timez .= $wps[$i][0] . " ";
+		$latz .= $wps[$i][1] . " ";
+		$longz .= $wps[$i][2] . " ";
+	}
+	$rsp->times = $timez;
+	$rsp->lats = $latz;
+	$rsp->longs = $longz;
+
+	// Return info
+	$rsp->setSuccessful();
+	$rsp->respondAndExit();
+}
+
 
 ?>
