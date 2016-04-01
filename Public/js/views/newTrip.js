@@ -111,7 +111,7 @@ app.views.NewTripView = Marionette.View.extend({
 		console.log("Logging a commute point.");
 		var thisVue = this;
 		// Get latitude, longitude, and time...
-		var allowed = getLatLongTime( function(pData) {
+		var allowed = commutUtils.getLatLongTime( function(pData) {
 			// And when you do, if you do, send that point data
 			thisVue.sendPoint(pData); 
 		});

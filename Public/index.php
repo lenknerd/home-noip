@@ -75,4 +75,20 @@
 	<!-- Utilities related to commute logger -->
 	<script src="js/commuteLoggerUtils.js"></script>
 
+	<script>
+		// Testing - run this when gmaps api loaded
+		function gmapsAPIHasLoaded() {
+			console.log("GMaps API has loaded.");
+			console.log("Here is my google obj:");
+			console.log(google.maps);
+		}
+	</script>
+
+	<!-- Google maps API, with key AIzaSyDyPJjs1OWZq1nf7RziJcQ3JEDZOSTaOzM -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyPJjs1OWZq1nf7RziJcQ3JEDZOSTaOzM&callback=gmapsAPIHasLoaded"
+    async defer></script>
+
+
+
+
 </body></html>

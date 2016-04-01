@@ -13,3 +13,13 @@
 	margin-right: auto;
 	width: 171px;
 }
+
+/* For google map */
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+#map {
+	margin: 10px;
+}
