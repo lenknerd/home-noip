@@ -36,7 +36,7 @@ app.views.ViewTripView = Marionette.View.extend({
 			success: function(data) {
 				console.log('Successfully retrieved trip info.');
 				console.log(data);
-				thisVu.showSingleTripMap(data);
+				thisVu.showSingleTrip(data);
 			},
 			error: function() {
 				console.log('Error getting trip info.');
@@ -44,8 +44,8 @@ app.views.ViewTripView = Marionette.View.extend({
 		});
 	},
 
-	// Show data on a google map with trip lined
-	showSingleTripMap: function(tripData) {
+	// Show data on a google map with trip lined, plus statistics
+	showSingleTrip: function(tripData) {
 		console.log("Showing trip...");
 
 		// Pull out data
@@ -84,6 +84,26 @@ app.views.ViewTripView = Marionette.View.extend({
 
 		// Go ahead and stick it on the map
 		tripPath.setMap( this.tripMap );
+
+		// Get trip statistics
+		var trStats = commutUtils.basicTripStats( ts, tripPts );
+
+		// Show the trip stats... first distances in miles
+		var milesPerMeter = 0.000621371;
+		var dTotal = milesPerMeter * trStats.totalD_Meters;
+		var dCrow = milesPerMeter * trStats.totalDStraight_Meters;
+		this.$('#d-total').text( dTotal );
+		this.$('#d-ascrow').text( dCrow );
+
+		// Next total time
+		var tTotal = trStats.totalT_Mins / 60.0; // Converting to minutes
+		this.$('#t-total').text( tTotal );
+
+		// Lastly average velocity
+		var tHours = tTotal / 60.0;
+		var avgSpeedMPH = dTotal / tHours;
+		this.$('#v-tavg').text( avgSpeedMPH );
+
 	},
 	
 	// Empty out main element
