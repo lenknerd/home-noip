@@ -18,4 +18,8 @@ This site is currently under construction and there is much to do... in no parti
 
 * Put in sanitization of user name
 * Put in resume
-* As internal page, implement commute logging project
+* As internal page, finish implementation of commute logging project
+	* Graph time against distance
+	* Select trips by endpoint locations
+	* Average over multiple trips
+	* Track altitude

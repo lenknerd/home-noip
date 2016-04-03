@@ -23,3 +23,8 @@ html, body {
 #map {
 	margin: 10px;
 }
+
+/* For text on trip-viewing and trip-watching page */
+.ts-unit {
+	color: gray;
+}

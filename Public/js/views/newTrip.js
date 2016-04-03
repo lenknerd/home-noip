@@ -18,8 +18,8 @@ app.views.NewTripView = Marionette.View.extend({
 		this.tripLogging = false;
 		// Timer not running initially
 		this.tripLogTimer = null;
-		// Interval of 5 seconds for log
-		this.tripLogInterval = 5000;
+		// Interval of 10 seconds for log
+		this.tripLogInterval = 10000;
 	},
 	
 	render: function() {
