@@ -20,6 +20,10 @@ var commutUtils = {
 					latitude: lat,
 					longitude: lon
 				});
+			},
+			function() { console.log("Error inside navigator geolocation.") },
+			{
+				enableHighAccuracy: true
 			});
 			return true;
 		} else {
