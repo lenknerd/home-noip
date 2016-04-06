@@ -14,6 +14,13 @@ app.views.ViewTripView = Marionette.View.extend({
 	requiresAuth: true,
 	
 	initialize: function() {
+		// Map dimension logic
+		var wTmp = window.innerWidth * 0.75;
+		if(wTmp > 800) {
+			wTmp = 800;
+		}
+		var hTmp = 0.75 * wTmp;
+		this.mapDims = { wPix: wTmp, hPix: hTmp };
 	},
 	
 	render: function() {
@@ -35,7 +42,7 @@ app.views.ViewTripView = Marionette.View.extend({
 			dataType: 'json',
 			success: function(data) {
 				console.log('Successfully retrieved trip info.');
-				console.log(data);
+				// console.log(data);
 				thisVu.showSingleTrip(data);
 			},
 			error: function() {
@@ -63,8 +70,8 @@ app.views.ViewTripView = Marionette.View.extend({
 		console.log(tripPts);
 
 		// Size up the map div
-		this.$('#map').css('height','300px');
-		this.$('#map').css('width','400px');
+		this.$('#map').css('height', this.mapDims.hPix + 'px');
+		this.$('#map').css('width', this.mapDims.wPix + 'px');
 		
 		// Initialize map
 		this.tripMap = new google.maps.Map( this.$('#map')[0], {
@@ -96,14 +103,12 @@ app.views.ViewTripView = Marionette.View.extend({
 		this.$('#d-ascrow').text( dCrow );
 
 		// Next total time
-		var tTotal = trStats.totalT_Mins / 60.0; // Converting to minutes
-		this.$('#t-total').text( tTotal );
+		this.$('#t-total').text( trStats.totalT_Mins );
 
 		// Lastly average velocity
-		var tHours = tTotal / 60.0;
+		var tHours = trStats.totalT_Mins / 60.0;
 		var avgSpeedMPH = dTotal / tHours;
 		this.$('#v-tavg').text( avgSpeedMPH );
-
 	},
 	
 	// Empty out main element

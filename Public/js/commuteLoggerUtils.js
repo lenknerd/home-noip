@@ -58,8 +58,8 @@ var commutUtils = {
 		}
 		var nP = pts.length;
 		// Trip length in minutes [1000*60 to convert millisecs to min]
-		var totalSeconds = (times[nP-1] - times[0]) / 1000;
-		var totalMinutes = totalSeconds / 60;
+		var totalSeconds = (times[nP-1] - times[0]) / 1000.0;
+		var totalMinutes = totalSeconds / 60.0;
 		// Trip total distance travelled (includes twists/turns)
 		var totalDistanceMeters = 0.0;
 		for(i = 0; i < nP-1; i++) {
@@ -70,7 +70,7 @@ var commutUtils = {
 		// Time-average speed
 		var tAvgdSpeedMetersPerSec = totalDistanceMeters / totalSeconds;
 
-		// Total distance in straight line
+		// Total distance in straight line (note, easily thrown off)
 		var totalDStraightMeters = 
 			google.maps.geometry.spherical.computeDistanceBetween(
 				pts[0], pts[nP-1] );

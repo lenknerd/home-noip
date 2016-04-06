@@ -18,8 +18,16 @@ app.views.NewTripView = Marionette.View.extend({
 		this.tripLogging = false;
 		// Timer not running initially
 		this.tripLogTimer = null;
-		// Interval of 20 seconds for log
+		// Interval of 25 seconds for log
 		this.tripLogInterval = 20000;
+
+		// Map dimension logic
+		var wTmp = window.innerWidth * 0.75;
+		if(wTmp > 800) {
+			wTmp = 800;
+		}
+		var hTmp = 0.75 * wTmp;
+		this.mapDims = { wPix: wTmp, hPix: hTmp };
 	},
 	
 	render: function() {
@@ -27,8 +35,8 @@ app.views.NewTripView = Marionette.View.extend({
 		this.$el.html( this.newTripTemplate() );
 
 		// Size up the map div
-		this.$('#map').css('height','300px');
-		this.$('#map').css('width','400px');
+		this.$('#map').css('height', this.mapDims.hPix + 'px');
+		this.$('#map').css('width', this.mapDims.wPix + 'px');
 		
 		// Initialize map
 		this.tripMap = new google.maps.Map( this.$('#map')[0], {
