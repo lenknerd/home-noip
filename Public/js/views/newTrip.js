@@ -25,6 +25,23 @@ app.views.NewTripView = Marionette.View.extend({
 	render: function() {
 		console.log("Rendering new trip view.");
 		this.$el.html( this.newTripTemplate() );
+
+		// Size up the map div
+		this.$('#map').css('height','300px');
+		this.$('#map').css('width','400px');
+		
+		// Initialize map
+		this.tripMap = new google.maps.Map( this.$('#map')[0], {
+			zoom: 16,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+
+		// Create a marker which will indicate current position
+		var myMap = this.tripMap;
+		this.cPosMarker = new google.maps.Marker( {
+			position: new google.maps.LatLng(0,0),
+			map: myMap
+		});
 	},
 	
 	events: {
@@ -143,6 +160,11 @@ app.views.NewTripView = Marionette.View.extend({
 				thisV.showTripAlert('Error sending location.', 'alert-danger');
 			}
 		});
+		// After sending point, set pos marker on the map and pan to it
+		var curPosish = new google.maps.LatLng( pointData.latitude,
+			pointData.longitude );
+		this.cPosMarker.setPosition( curPosish );
+		this.tripMap.panTo( curPosish );
 	},
 
 	// Show a message in the alert box with given class
