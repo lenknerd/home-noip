@@ -82,7 +82,7 @@ var commutUtils = {
 		var totalDistanceMiles = 0.0;
 		var every = 5;
 		var metPerMi = 0.000621371;
-		for(i=0; i<nP-1; i=i+every) {
+		for(i=0; i<nP-every; i=i+every) {
 			var btw2pts = google.maps.geometry.spherical.computeDistanceBetween(
 				pts[i], pts [i+every] ) * metPerMi;
 
@@ -91,7 +91,7 @@ var commutUtils = {
 			// Time difference (convert to minutes via 60000)
 			var tBtwPts_mins = (times[i+every] - times[i]) / 60000.0; 
 			var minsPerMile = tBtwPts_mins / btw2pts;
-			timePerDistArr.push( [totalDistanceMiles+0.0, minsPerMile+0.0] );
+			tvdTableData.push( [totalDistanceMiles+0.0, minsPerMile+0.0] );
 		}
 
 		// Return all results in ob
@@ -100,7 +100,7 @@ var commutUtils = {
 			totalD_Meters: totalDistanceMeters,
 			totalDStraight_Meters: totalDStraightMeters,
 			tAvgV_MetersPerSec: tAvgdSpeedMetersPerSec,
-			tableDataTVD: timePerDistArr
+			tableDataTVD: tvdTableData
 		};
 	}
 

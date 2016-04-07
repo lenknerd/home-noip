@@ -29,3 +29,9 @@ html, body {
 .ts-unit {
 	color: gray;
 }
+
+/* Margin around chart */
+#tvd-chart {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

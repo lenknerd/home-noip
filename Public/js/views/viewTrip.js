@@ -139,9 +139,7 @@ app.views.ViewTripView = Marionette.View.extend({
 		this.$('#tvd-chart').css('width', this.mapDims.wPix + 'px');
 
 		// Actually draw the chart
-		var chart = new google.visualization.AreaChart(
-			this.$('#tvd-chart')[0];
-		);
+		var chart = new google.visualization.AreaChart(this.$('#tvd-chart')[0]);
 		chart.draw(chartData, options);
 	},
 	
