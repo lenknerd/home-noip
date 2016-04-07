@@ -85,10 +85,10 @@
 	</script>
 
 	<!-- Google maps API, with key AIzaSyDyPJjs1OWZq1nf7RziJcQ3JEDZOSTaOzM -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyPJjs1OWZq1nf7RziJcQ3JEDZOSTaOzM&callback=gmapsAPIHasLoaded&libraries=geometry"
-    async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyPJjs1OWZq1nf7RziJcQ3JEDZOSTaOzM&callback=gmapsAPIHasLoaded&libraries=geometry" async defer></script>
 
-
+	<!-- Google charts API -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 
 </body></html>

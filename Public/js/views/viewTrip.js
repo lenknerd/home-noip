@@ -105,10 +105,44 @@ app.views.ViewTripView = Marionette.View.extend({
 		// Next total time
 		this.$('#t-total').text( trStats.totalT_Mins );
 
-		// Lastly average velocity
+		// Average velocity
 		var tHours = trStats.totalT_Mins / 60.0;
 		var avgSpeedMPH = dTotal / tHours;
 		this.$('#v-tavg').text( avgSpeedMPH );
+
+		/* After all those numric stats, show chart of T vs D... but wait a bit
+		 * for chart module to load if needed (a sec at most seems okay) */
+		var thisv = this;
+		if( ! app.gChartLoaded ) {
+			setTimeout( function() {
+				thisv.showTVDChart(trStats.tableDataTVD);
+			}, 1000 );
+		} else {
+			this.showTVDChart(trStats.tableDataTVD);
+		}
+	},
+
+	// Show chart of time vs distance for given trip points and times
+	showTVDChart: function(tableDataTVD) {
+		console.log("Showing trip time vs distance chart.");
+
+		// Create data and formatting options
+		var chartData = google.visualization.arrayToDataTable(tableDataTVD);
+		var options = {
+			title: 'Time vs Distance',
+			hAxis: {title: 'Distance (mi)',  titleTextStyle: {color: '#333'}},
+			vAxis: {title: 'Time Density (min/mi)', minValue: 0}
+		};
+
+		// Size up the chart div if not sized already (make same size as map)
+		this.$('#tvd-chart').css('height', this.mapDims.hPix + 'px');
+		this.$('#tvd-chart').css('width', this.mapDims.wPix + 'px');
+
+		// Actually draw the chart
+		var chart = new google.visualization.AreaChart(
+			this.$('#tvd-chart')[0];
+		);
+		chart.draw(chartData, options);
 	},
 	
 	// Empty out main element

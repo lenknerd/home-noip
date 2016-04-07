@@ -9,6 +9,7 @@
 var app = Marionette.Application.extend({
 	
 	initialize: function() {
+		this.gChartLoaded = false;
 	},
 	
 	router: {}, // The router-to-be
@@ -145,6 +146,12 @@ app.on("start", function() {
 			// Start up on home page if no route selected
 			app.router.navigate('welcome', {trigger: true});
 		}
+	});
+
+	// Load google chart API any time, for use in view trip page
+	google.charts.load('current', {'packages':['corechart']});
+	google.charts.setOnLoadCallback(function() {
+		app.gChartLoaded = true;
 	});
 });
 
