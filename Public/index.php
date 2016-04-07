@@ -39,12 +39,12 @@
 	<div class="container" id="main">
 	</div>
 
-	<!-- Footer -->
-	<footer class="footer">
+	<!-- Footer; TEMPORARILY HIDDEN WHILE DEBUGGING 
+	<footer class="footer" style="display: none;">
 		<div class="container">
 		<p class="text-muted">Copyright &copy; 2016 David Lenkner</p>
  		</div>
-	</footer>
+	</footer> -->
 
 
 	<!-- Bootstrap core JavaScript -->
