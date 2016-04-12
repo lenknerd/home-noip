@@ -45,6 +45,13 @@ app.views.NewTripView = Marionette.View.extend({
 			url: 'api.php/getWordSwap/' + wSwapName,
 			success: function(data) {
 				console.log("Got wordswap html.");
+				// First fade out the selector page
+				thisView.$('#wSwapChoices').fadeOut(250, function() {
+					// Then put the right specific html in the latter div
+					thisView.$('#specificSwap').html(data);
+					// And fade that div in
+					thisView.$('#specificSwap').fadeIn(250);
+				});
 			},
 			error: function(r, m) {
 				console.log('Error getting wordswap html: ' + m);
