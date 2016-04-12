@@ -69,6 +69,18 @@ $app->get('/tripInfo', function() {
 	getTripInfo( $_GET['tripid'] );
 })->add($RequireAuthMW);
 
+// Route for getting a particular wordswap html section
+$app->get('/getWordSwap/{wName}', function($request, $response, $args) {
+	// Read file from disk
+	$wName = $request->getAttribute('wName');
+	$htdoc = new DOMDocument();
+	$htdoc->validateOnParse = true;
+	$htdoc->loadHTMLFile("./html/internal/wordswap/${wname}.html");
+
+	// Return document to client
+	echo $htdoc->saveHTML();
+})->add($RequireAuthMW);
+
 
 // Run the application
 $app->run();
