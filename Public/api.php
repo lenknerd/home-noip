@@ -75,7 +75,8 @@ $app->get('/getWordSwap/{wName}', function($request, $response, $args) {
 	$wName = $request->getAttribute('wName');
 	$htdoc = new DOMDocument();
 	$htdoc->validateOnParse = true;
-	$htdoc->loadHTMLFile("./html/internal/wordswap/${wname}.html");
+	$htdoc->loadHTMLFile("./html/internal/wordswap/${wName}.html");
+			// NOTHING READS... ???
 
 	// Return document to client
 	echo $htdoc->saveHTML();

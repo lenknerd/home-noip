@@ -15,7 +15,8 @@ app.router = Marionette.AppRouter.extend({
 		"logIn"     : "logIn",
 		"logOut"    : "logOut",
 		"newTrip"   : "newTrip",
-		"viewTrip"  : "viewTrip"
+		"viewTrip"  : "viewTrip",
+		"wordSwap"  : "wordSwap"
 	},
 	
 	// Initialize - called when the router starts up, nothing here for now
@@ -83,6 +84,13 @@ app.router = Marionette.AppRouter.extend({
 		app.navBarSelectInternal();
 		console.log("Navigating to the trip-viewing page...");
 		app.showMainView(new app.views.ViewTripView());
+	},
+
+	// Play the wordSwap (part of speech, or PoS) game
+	wordSwap: function() {
+		app.navBarSelectInternal();
+		console.log("Navigating to the wordSwap page...");
+		app.showMainView(new app.views.WordSwapView());
 	}
 
 });

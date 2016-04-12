@@ -6,7 +6,7 @@
  * David Lenkner, c. 2016
  */
 
-app.views.NewTripView = Marionette.View.extend({
+app.views.WordSwapView = Marionette.View.extend({
 	
 	el: '#main', // Where it will go in index.html
 	
@@ -20,7 +20,7 @@ app.views.NewTripView = Marionette.View.extend({
 	
 	render: function() {
 		console.log("Rendering new trip view.");
-		this.$el.html( this.newTripTemplate() );
+		this.$el.html( this.wordSwapTemplate() );
 	},
 	
 	events: {
@@ -36,15 +36,17 @@ app.views.NewTripView = Marionette.View.extend({
 
 	pickWordSwap: function(ev) {
 		var thisView = this;
-		var wSwapName = ev.data('wname');
-		alert('Clicked on wname ' + wSwapName);
+		var wSwapName = this.$(ev.currentTarget).attr('id');
+		alert('Clicked on wname ' + wSwapName); // TEST
 
 		// AJAX call to get the html for that particular wordswap
 		$.ajax({
 			type: 'GET',
 			url: 'api.php/getWordSwap/' + wSwapName,
+			dataType: 'html',
 			success: function(data) {
-				console.log("Got wordswap html.");
+				console.log("Got wordswap html;");
+				console.log(data);
 				// First fade out the selector page
 				thisView.$('#wSwapChoices').fadeOut(250, function() {
 					// Then put the right specific html in the latter div
