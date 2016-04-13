@@ -16,6 +16,7 @@ app.views.WordSwapView = Marionette.View.extend({
 	requiresAuth: true,
 	
 	initialize: function() {
+		this.fadeDur = 300; // Fade duration in millisecs, half full in-out
 	},
 	
 	render: function() {
@@ -24,7 +25,8 @@ app.views.WordSwapView = Marionette.View.extend({
 	},
 	
 	events: {
-		'click .start-wordswap'   : 'pickWordSwap'
+		'click .start-wordswap'  : 'pickWordSwap',
+		'click .ws-submit'       : 'swapWords'
 	},
 	
 	// Empty out main element
@@ -37,7 +39,6 @@ app.views.WordSwapView = Marionette.View.extend({
 	pickWordSwap: function(ev) {
 		var thisView = this;
 		var wSwapName = this.$(ev.currentTarget).attr('id');
-		alert('Clicked on wname ' + wSwapName); // TEST
 
 		// AJAX call to get the html for that particular wordswap
 		$.ajax({
@@ -45,14 +46,13 @@ app.views.WordSwapView = Marionette.View.extend({
 			url: 'api.php/getWordSwap/' + wSwapName,
 			dataType: 'html',
 			success: function(data) {
-				console.log("Got wordswap html;");
-				console.log(data);
+				console.log("Got wordswap html.");
 				// First fade out the selector page
-				thisView.$('#wSwapChoices').fadeOut(250, function() {
+				thisView.$('#wSwapChoices').fadeOut(thisView.fadeDur, function() {
 					// Then put the right specific html in the latter div
 					thisView.$('#specificSwap').html(data);
 					// And fade that div in
-					thisView.$('#specificSwap').fadeIn(250);
+					thisView.$('#specificSwap').fadeIn(thisView.fadeDur);
 				});
 			},
 			error: function(r, m) {
@@ -61,10 +61,37 @@ app.views.WordSwapView = Marionette.View.extend({
 		});
 	},
 	
-	// Clear alert color
-	clearAlertClass: function() {
-		this.$('#trip-alert').removeClass('alert-success');
-		this.$('#trip-alert').removeClass('alert-danger');
-		this.$('#trip-alert').removeClass('alert-warning');
+	// Do the word swap
+	swapWords: function() {
+		// Collect values from form
+		var idToVal = {};
+		this.$('.swap-input').each( function(index) {
+			var idd = $(this).attr('id');
+			idToVal[idd + ''] = $(this).val() + '';
+		});
+		// Fade out the form part where they input elements
+		var thisView = this;
+		this.$('#wordswap-form').fadeOut(thisView.fadeDur, function() {
+			// Then replace stuff in the specifics body
+			for(var i in idToVal) {
+				thisView.$('#' + i).text( idToVal[i] );
+			}
+			// Capitalize or un-capitalize starts of output spans
+			thisView.$('.swap-output').each( function(ind) {
+				var origText = $(this).text();
+				var startChar = $(this).text().slice(0,1);
+				if( $(this).hasClass('upc') ) {
+					var newCh = startChar.toUpperCase();
+					$(this).text( newCh + origText.slice(1) );
+				}
+				if( $(this).hasClass('loc') ) {
+					var newCh = startChar.toLowerCase();
+					$(this).text( newCh + origText.slice(1) );
+				}
+			});
+			// Then fade in the body
+			thisView.$('#wordswap-body').fadeIn(thisView.fadeDur);
+		});
 	}
+
 });

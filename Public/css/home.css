@@ -35,8 +35,3 @@ html, body {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
-
-/* For word swap page */
-.wordswap-body-hidden {
-	display: none;
-}

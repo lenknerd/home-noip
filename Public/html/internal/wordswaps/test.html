@@ -1,15 +1,24 @@
 <div>
-	<form class="wordswap-form">
+	<form id="wordswap-form">
+		<h4>Fill out the form below with the parts of speech requested.</h4>
 		<fieldset class="form-group">
 			<label for="test-noun1">Noun</label>
-			<input type="text" class="form-control" id="test-noun1" placeholder="Enter a Noun">
+			<input type="text" class="form-control swap-input" id="test-noun1" placeholder="Enter a Noun">
 			<small class="text-muted">
 				A person, place, or thing - e.g., "cat," "telephone," "policeman."
 			</small>
 		</fieldset>
+		<button type="button" class="btn btn-primary ws-submit">Submit!</button>
 	</form>
-	<div class="wordswap-body wordswap-body-hidden">
+	<div id="wordswap-body" style="display: none;">
 		<h2>The Test Story</h2>
-		<p>Once upon a time there was a <span id="test-noun1_"></span></p>
+		<p>Once upon a time there was a <span class="swap-output" id="test-noun1_"></span>.  It
+		  was a pretty good one too.
+		</p>
+		<p><span class="swap-output upc" id="test-noun1_"></span> should be upper case regardless.
+		</p>
+		<p>This: "<span class="swap-output loc" id="test-noun1_"></span>" should be lower case regardless.
+		</p>
+		<p><em>The end.</em></p>
 	</div>
 </div>
