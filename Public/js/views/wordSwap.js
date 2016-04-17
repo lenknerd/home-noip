@@ -67,25 +67,38 @@ app.views.WordSwapView = Marionette.View.extend({
 		var idToVal = {};
 		this.$('.swap-input').each( function(index) {
 			var idd = $(this).attr('id');
-			idToVal[idd + ''] = $(this).val() + '';
+			// The fields to fill should have class as input ID + '_'
+			idToVal[idd + '_'] = $(this).val() + '';
 		});
+		// console.log(idToVal);
 		// Fade out the form part where they input elements
 		var thisView = this;
 		this.$('#wordswap-form').fadeOut(thisView.fadeDur, function() {
 			// Then replace stuff in the specifics body
 			for(var i in idToVal) {
-				thisView.$('#' + i).text( idToVal[i] );
+				console.log('Texting class ' + i + ' with value ' + idToVal[i]);
+				thisView.$('.' + i).each( function(ind) {
+					// console.log('Hit one;' );
+					// console.log(this);
+					$(this).text( idToVal[i] );
+					// console.log('After change that became:');
+					// console.log(this);
+				});
 			}
 			// Capitalize or un-capitalize starts of output spans
 			thisView.$('.swap-output').each( function(ind) {
 				var origText = $(this).text();
 				var startChar = $(this).text().slice(0,1);
+				// console.log('Hit .swap-output:');
+				// console.log(this);
 				if( $(this).hasClass('upc') ) {
 					var newCh = startChar.toUpperCase();
+					// console.log("Uppercasing: new char is " + newCh);
 					$(this).text( newCh + origText.slice(1) );
 				}
 				if( $(this).hasClass('loc') ) {
 					var newCh = startChar.toLowerCase();
+					// console.log("Lowercasing: new char is " + newCh);
 					$(this).text( newCh + origText.slice(1) );
 				}
 			});
