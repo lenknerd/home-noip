@@ -9,8 +9,10 @@ The site uses [will use] the following packages;
 * Twitter's [Bootstrap](http://getbootstrap.com/)
 * [Backbone Marionette](http://marionettejs.com/)
 * [Slim](http://www.slimframework.com/)
+* [Google Charts](https://developers.google.com/chart/)
+* [Google Maps APIs](https://developers.google.com/maps/)
 
-Thanks to their creators for making these available!
+Thanks to their creators for making these freely available!
 
 ### To-Do Items
 
@@ -20,7 +22,6 @@ This site is currently under construction and there is much to do... in no parti
 * Put in resume
 * Fix footer stickyness for long content
 * As internal page, finish implementation of commute logging project
-	* Graph time against distance
 	* Select trips by endpoint locations
 	* Average over multiple trips
 	* Track altitude

@@ -142,6 +142,75 @@ app.views.ViewTripView = Marionette.View.extend({
 		var chart = new google.visualization.AreaChart(this.$('#tvd-chart')[0]);
 		chart.draw(chartData, options);
 	},
+
+	// Show chart of elevation vs distance along route
+	generateAndShowEVD: function(tripPoints) {
+		var pointsAndElevations = [];
+		console.log('Generating elevation graph.');
+		var elvURL = 'https://maps.googleapis.com/maps/api/elevation/json';
+		for(var ii=0; ii<tripPoints.length; ii++) {
+			// For each point, send it's lat/lng to g api to get elev for there
+			
+		}
+		/* Add call to:
+		 * https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034|36.455556,-116.866667&key=YOUR_API_KEY
+		
+		// AJAX call to start or stop logging
+		$.ajax({
+			type: 'GET',
+			url: 'api.php/' + startStopRoute,
+			dataType: 'json',
+			success: function(data) {
+				if(data.success) {
+					// Specific data is just the string which is the trip id
+					thisView.$('#tripid').text( data.specifics );
+					// Loggin started display in main alert box
+					thisView.showTripAlert(msgToUser,alertClass);
+					// And start the interval logging timer
+					thisView.startOrStopTimer(startElseStop);
+				} else {
+					thisView.showTripAlert(data.errMessage,'alert-danger');
+				}
+			},
+			error: function(r, m) {
+				console.log('Error starting:' + m);
+				thisView.showTripAlert('Error with start/stop!', 'alert-danger');
+			},
+			async: false // Added DWL 1/21/17 will need here
+		});
+
+
+
+
+
+	 */
+		// So we got the elevation data, now show it on a graph here
+		this.showEVDgraph(pointsAndElevations);
+	}
+
+	//	After EVD data has been generated in above, this is called to graph
+	showEVDgraph: function(ptsAndEls) {
+	/*
+ 		console.log("Showing trip time vs distance chart.");
+
+		// Create data and formatting options
+		var chartData = google.visualization.arrayToDataTable(tableDataTVD);
+		var options = {
+			title: 'Time vs Distance',
+			hAxis: {title: 'Distance (mi)',  titleTextStyle: {color: '#333'}},
+			vAxis: {title: 'Time Density (min/mi)', minValue: 0}
+		};
+
+		// Size up the chart div if not sized already (make same size as map)
+		this.$('#tvd-chart').css('height', this.mapDims.hPix + 'px');
+		this.$('#tvd-chart').css('width', this.mapDims.wPix + 'px');
+
+		// Actually draw the chart
+		var chart = new google.visualization.AreaChart(this.$('#tvd-chart')[0]);
+		chart.draw(chartData, options);
+ *
+ */
+	}
 	
 	// Empty out main element
 	close: function() {
