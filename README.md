@@ -1,9 +1,9 @@
 David Lenkner's Home Page
 =========================
 
-My home page!  Contains some professional information (resume mainly) as well as a few pages I developed just for fun.  It is served from my LAMP stack at home and can be viewed at [http://lenknerd.com](http://lenknerd.com).
+My home page!  Contains some professional information (resume mainly) as well as a few pages I developed just for fun.  It is not currently in service but hopefully will be soon at lenknerd.com.
 
-The site uses [will use] the following packages;
+The site uses the following packages;
 
 * [jQuery](https://jquery.com/)
 * Twitter's [Bootstrap](http://getbootstrap.com/)
