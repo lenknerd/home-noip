@@ -150,8 +150,21 @@ app.views.ViewTripView = Marionette.View.extend({
 		var elvURL = 'https://maps.googleapis.com/maps/api/elevation/json';
 		for(var ii=0; ii<tripPoints.length; ii++) {
 			// For each point, send it's lat/lng to g api to get elev for there
-			
+			var elv = this.getElvForLoc(tripPoints[ii]);
+			pointsAndElevations.push({
+				lat: tripPoints[ii]. ,
+				lng: tripPoints[ii]. ,
+				ele: elv + 0.0
+			});
 		}
+
+		// So we got the elevation data, now show it on a graph here
+		this.showEVDgraph(pointsAndElevations);
+	},
+	
+	// Forone lat and lng, get elevation
+	getElvForLoc: function(latLngPoint) {
+
 		/* Add call to:
 		 * https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034|36.455556,-116.866667&key=YOUR_API_KEY
 		
@@ -160,6 +173,7 @@ app.views.ViewTripView = Marionette.View.extend({
 			type: 'GET',
 			url: 'api.php/' + startStopRoute,
 			dataType: 'json',
+			data: latLng, // [ Note - should be js obj ]
 			success: function(data) {
 				if(data.success) {
 					// Specific data is just the string which is the trip id
@@ -178,20 +192,19 @@ app.views.ViewTripView = Marionette.View.extend({
 			},
 			async: false // Added DWL 1/21/17 will need here
 		});
-
-
-
-
-
 	 */
-		// So we got the elevation data, now show it on a graph here
-		this.showEVDgraph(pointsAndElevations);
-	}
+
+		return 0.0;
+	},
 
 	//	After EVD data has been generated in above, this is called to graph
 	showEVDgraph: function(ptsAndEls) {
-	/*
- 		console.log("Showing trip time vs distance chart.");
+/*
+		// Need to construct table like
+		var evdTableData = [['Distance (mi)','Elevation (ft)']];
+		// in loop, push [dist, elev] pairs
+
+ 		console.log("Showing trip elevation vs distance chart.");
 
 		// Create data and formatting options
 		var chartData = google.visualization.arrayToDataTable(tableDataTVD);
@@ -210,7 +223,7 @@ app.views.ViewTripView = Marionette.View.extend({
 		chart.draw(chartData, options);
  *
  */
-	}
+	},
 	
 	// Empty out main element
 	close: function() {
