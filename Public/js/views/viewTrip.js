@@ -144,22 +144,18 @@ app.views.ViewTripView = Marionette.View.extend({
 	},
 
 	// Show chart of elevation vs distance along route
-	generateAndShowEVD: function(tripPoints) {
-		var pointsAndElevations = [];
+	generateAndShowEVD: function(tripPoints, tripStats) {
+		var elevations = [];
 		console.log('Generating elevation graph.');
 		var elvURL = 'https://maps.googleapis.com/maps/api/elevation/json';
 		for(var ii=0; ii<tripPoints.length; ii++) {
 			// For each point, send it's lat/lng to g api to get elev for there
 			var elv = this.getElvForLoc(tripPoints[ii]);
-			pointsAndElevations.push({
-				lat: tripPoints[ii]. ,
-				lng: tripPoints[ii]. ,
-				ele: elv + 0.0
-			});
+			pointsAndElevations.push(elv*1.0);
 		}
 
 		// So we got the elevation data, now show it on a graph here
-		this.showEVDgraph(pointsAndElevations);
+		this.showEVDgraph(elevations, tripStats);
 	},
 	
 	// Forone lat and lng, get elevation
@@ -198,31 +194,32 @@ app.views.ViewTripView = Marionette.View.extend({
 	},
 
 	//	After EVD data has been generated in above, this is called to graph
-	showEVDgraph: function(ptsAndEls) {
-/*
-		// Need to construct table like
+	showEVDgraph: function(els, trStats) {
+
+		// Construct table (2D array of data)
 		var evdTableData = [['Distance (mi)','Elevation (ft)']];
-		// in loop, push [dist, elev] pairs
+		for(var ii=0; ii<ptsAndEls.length; ii++) {
+			// Note the ii+1 is because of header row
+			evdTableData.push( [trStats.tableDataTVD[ii+1],els[ii]] );
+		}
 
  		console.log("Showing trip elevation vs distance chart.");
 
 		// Create data and formatting options
-		var chartData = google.visualization.arrayToDataTable(tableDataTVD);
-		var options = {
-			title: 'Time vs Distance',
+		var eChartData = google.visualization.arrayToDataTable(evdTableData);
+		var eOptions = {
+			title: 'Elevation vs Distance',
 			hAxis: {title: 'Distance (mi)',  titleTextStyle: {color: '#333'}},
-			vAxis: {title: 'Time Density (min/mi)', minValue: 0}
+			vAxis: {title: 'Elevation (ft)', minValue: -100.0}
 		};
 
 		// Size up the chart div if not sized already (make same size as map)
-		this.$('#tvd-chart').css('height', this.mapDims.hPix + 'px');
-		this.$('#tvd-chart').css('width', this.mapDims.wPix + 'px');
+		this.$('#evd-chart').css('height', this.mapDims.hPix + 'px');
+		this.$('#evd-chart').css('width', this.mapDims.wPix + 'px');
 
 		// Actually draw the chart
-		var chart = new google.visualization.AreaChart(this.$('#tvd-chart')[0]);
-		chart.draw(chartData, options);
- *
- */
+		var chart = new google.visualization.AreaChart(this.$('#evd-chart')[0]);
+		chart.draw(eChartData, eOptions);
 	},
 	
 	// Empty out main element
