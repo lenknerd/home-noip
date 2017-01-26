@@ -152,19 +152,38 @@ app.views.ViewTripView = Marionette.View.extend({
 		chart.draw(chartData, options);
 	},
 
-	// Show chart of elevation vs distance along route
+	// Show chart of elevation vs distance along route.
 	generateAndShowEVD: function(tripPoints, tripStats) {
-		var elevations = [];
+		var elevations = new Array(tripPoints.length);
+		var elevDones = [];
+		var thisView = this;
+		var nToGo = tripPoints.length;
 		console.log('Generating elevation graph.');
-		var elvURL = 'https://maps.googleapis.com/maps/api/elevation/json';
-		for(var ii=0; ii<tripPoints.length; ii++) {
-			// For each point, send it's lat/lng to g api to get elev for there
-			var elv = this.getElvForLoc(tripPoints[ii]);
-			elevations.push(elv*1.0);
-		}
 
-		// So we got the elevation data, now show it on a graph here
-		this.showEVDgraph(elevations, tripStats);
+		// Need forEach here, for won't work, each index needs own scope
+		tripPoints.forEach( function(tp, m) {
+		
+			// For each point, send it's lat/lng to g api to get elev for there
+			thisView.getElvForLoc(tripPoints[m]).done(function(sdata,textStat,jqXHR) {
+ 				var data = JSON.parse(sdata);
+				if(data.status != 'OK') {
+					console.log('Bad status on elevation request. Status is:');
+					console.log(data.results.status);
+					elevations[m] = 0.0;
+				} else {
+					// Convert meters to feet
+					var eleva = data.results[0].elevation * 3.2808;
+					console.log("Inside one-done: el " + m + " is " + eleva);
+					elevations[m] = eleva + 0.0;
+					// One more result received...
+					nToGo--;
+					// If this was last one needed, graph stuff
+					if(nToGo == 0) {
+						thisView.showEVDgraph(elevations, tripStats);
+					}
+				}	
+			});
+		});
 	},
 	
 	// Forone lat and lng, get elevation
@@ -173,54 +192,58 @@ app.views.ViewTripView = Marionette.View.extend({
 		// Call to google API to get elevation for location
 		var ke = 'AIzaSyAIce764jI5jVbIUcLVCQqS7IyTWpxJoZ8';
 		// Note, Google API restriction ensures this key only usable by my site.
-		var elevURLBase = 'https://maps.googleapis.com/maps/api/elevation/json';
-		var elevURL = elevURLBase + latLngPoint.lat + ',' + latLngPoint.lng;
-		var elevURLFinal = elevURL + '&key=' + ke;
+		// Wouldn't hurt if using more elsewhere to put in app
+		var elevURL = 'https://maps.googleapis.com/maps/api/elevation/json?' +
+			'locations=' + latLngPoint.lat() + ',' + latLngPoint.lng() +
+			'&key=' + ke;
+		console.log(elevURL);
 		/* Doc online from google says should be of form:
 		 * https://maps.googleapis.com/maps/api/elevation/json?locations=
 		 * 39.7391536,-104.9847034|36.455556,-116.866667&key=YOUR_API_KEY
 		 */
 		
 		// AJAX call to start or stop logging
-		$.ajax({
-			type: 'GET',
-			url: elevURLFinal,
-			dataType: 'json',
-			data: latLngData, // [ Note - should be js obj ]
-			success: function(data) {
-				if(data.success) {
-					// Specific data is just the string which is the trip id
-					thisView.$('#tripid').text( data.specifics );
-					// Loggin started display in main alert box
-					thisView.showTripAlert(msgToUser,alertClass);
-					// And start the interval logging timer
-					thisView.startOrStopTimer(startElseStop);
-				} else {
-					thisView.showTripAlert(data.errMessage,'alert-danger');
-				}
-			},
-			error: function(r, m) {
-				console.log('Error starting:' + m);
-				thisView.showTripAlert('Error with start/stop!', 'alert-danger');
-			},
-			async: false // Added DWL 1/21/17 will need here
-		});
-	 */
+		var eleva = 0.0;
+		var proxyForCO = window.location.href.split(".com")[0] + '.com' +
+			'/php/proxy.php';
+		return $.ajax({
+			// type: 'GET',
+			crossOrigin: true,
+			proxy: proxyForCO,
+			url: elevURL,
+			// context: {},
+			// dataType: 'json', // No effect?...
+			// NOTE: USING .DONE, NOT SUCCESS HERE
+			/* success: function(sdata) {
+				var data = JSON.parse(sdata);
 
-		return 0.0;
+				if(data.status != 'OK') {
+					console.log('Bad status on elevation request. Status is:');
+					console.log(data.results.status);
+				} else {
+					// Convert meters to feet
+					eleva = data.results[0].elevation * 3.2808;
+					console.log("Inside see eleva " + eleva);
+				}			
+			}, */
+			error: function(r, m) {
+				console.log('Error getting elevation: ' + m);
+			}
+		});	
 	},
 
 	//	After EVD data has been generated in above, this is called to graph
 	showEVDgraph: function(els, trStats) {
-
+		console.log(els);	
 		// Construct table (2D array of data)
 		var evdTableData = [['Distance (mi)','Elevation (ft)']];
 		for(var ii=0; ii<els.length; ii++) {
 			// Note the ii+1 is because of header row
-			evdTableData.push( [trStats.tableDataTVD[ii+1],els[ii]] );
+			evdTableData.push( [trStats.tableDataTVD[ii+1]+0.0,els[ii]+0.0] );
 		}
 
- 		console.log("Showing trip elevation vs distance chart.");
+ 		console.log("Showing trip elevation vs distance chart. Data is:");
+		console.log(evdTableData);
 
 		// Create data and formatting options
 		var eChartData = google.visualization.arrayToDataTable(evdTableData);

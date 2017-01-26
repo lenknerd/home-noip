@@ -51,6 +51,9 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 
+	<!-- JQuery extension for cross-origin AJAX -->
+	<script type="text/javascript" src="js/jquery.ajax-cross-origin.min.js"></script>
+
 	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 	<script src="js/ie10-viewport-bug-workaround.js"></script>
 
