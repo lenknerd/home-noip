@@ -120,6 +120,15 @@ app.views.ViewTripView = Marionette.View.extend({
 		} else {
 			this.showTVDChart(trStats.tableDataTVD);
 		}
+
+		/* And similarly a chart of elevation vs D... */
+		if( ! app.gChartLoaded ) {
+			setTimeout( function() {
+				thisv.generateAndShowEVD(tripPts, trStats);
+			}, 1000 );
+		} else {
+			this.generateAndShowEVD(tripPts, trStats);
+		}
 	},
 
 	// Show chart of time vs distance for given trip points and times
@@ -151,7 +160,7 @@ app.views.ViewTripView = Marionette.View.extend({
 		for(var ii=0; ii<tripPoints.length; ii++) {
 			// For each point, send it's lat/lng to g api to get elev for there
 			var elv = this.getElvForLoc(tripPoints[ii]);
-			pointsAndElevations.push(elv*1.0);
+			elevations.push(elv*1.0);
 		}
 
 		// So we got the elevation data, now show it on a graph here
@@ -161,15 +170,23 @@ app.views.ViewTripView = Marionette.View.extend({
 	// Forone lat and lng, get elevation
 	getElvForLoc: function(latLngPoint) {
 
-		/* Add call to:
-		 * https://maps.googleapis.com/maps/api/elevation/json?locations=39.7391536,-104.9847034|36.455556,-116.866667&key=YOUR_API_KEY
+		// Call to google API to get elevation for location
+		var ke = 'AIzaSyAIce764jI5jVbIUcLVCQqS7IyTWpxJoZ8';
+		// Note, Google API restriction ensures this key only usable by my site.
+		var elevURLBase = 'https://maps.googleapis.com/maps/api/elevation/json';
+		var elevURL = elevURLBase + latLngPoint.lat + ',' + latLngPoint.lng;
+		var elevURLFinal = elevURL + '&key=' + ke;
+		/* Doc online from google says should be of form:
+		 * https://maps.googleapis.com/maps/api/elevation/json?locations=
+		 * 39.7391536,-104.9847034|36.455556,-116.866667&key=YOUR_API_KEY
+		 */
 		
 		// AJAX call to start or stop logging
 		$.ajax({
 			type: 'GET',
-			url: 'api.php/' + startStopRoute,
+			url: elevURLFinal,
 			dataType: 'json',
-			data: latLng, // [ Note - should be js obj ]
+			data: latLngData, // [ Note - should be js obj ]
 			success: function(data) {
 				if(data.success) {
 					// Specific data is just the string which is the trip id
@@ -198,7 +215,7 @@ app.views.ViewTripView = Marionette.View.extend({
 
 		// Construct table (2D array of data)
 		var evdTableData = [['Distance (mi)','Elevation (ft)']];
-		for(var ii=0; ii<ptsAndEls.length; ii++) {
+		for(var ii=0; ii<els.length; ii++) {
 			// Note the ii+1 is because of header row
 			evdTableData.push( [trStats.tableDataTVD[ii+1],els[ii]] );
 		}
