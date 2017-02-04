@@ -1,0 +1,29 @@
+<div>
+	<form id="wordswap-form">
+		<h4>Fill out the form below with the parts of speech requested.</h4>
+		<fieldset class="form-group">
+			<label for="test-noun1">Plural Noun</label>
+			<input type="text" class="form-control swap-input" id="title-pnoun1" placeholder="Enter a Noun">
+			<small class="text-muted">
+				A noun ending in "s" - e.g., "cats," "houses."
+			</small>
+		</fieldset>
+		<button type="button" class="btn btn-primary ws-submit">Submit!</button>
+	</form>
+	<div id="wordswap-body" style="display: none;">
+		<h2>King Still Has It</h2>
+		<h4>Dennis McPherson, Tribute News Service</h4>
+		<p>Stephen King has treated us over the years to a wealth of thoroughly enjoyable and spine-tingling thrillers, and his new novel, 'Revenge of the <span class="swap-output upc title-pnoun1_"></span>', is a worthy addition to the oeuvre.</p>
+		
+<!-- REMINDERS ON SYNTAX
+		<p>Once upon a time there was a <span class="swap-output test-noun1_"></span>.  It
+		  was a pretty good one too.  That corresponds to a 'swap-input' class with id 'test-noun1 (without the _ at the end).
+		</p>
+		<p><span class="swap-output upc test-noun1_"></span> should be upper case regardless.
+		</p>
+		<p>This: "<span class="swap-output loc test-noun1_"></span>" should be lower case regardless.
+		</p>
+		<p><em>The end.</em></p>
+-->
+	</div>
+</div>
