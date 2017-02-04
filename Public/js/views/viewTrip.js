@@ -239,7 +239,7 @@ app.views.ViewTripView = Marionette.View.extend({
 		var evdTableData = [['Distance (mi)','Elevation (ft)']];
 		for(var ii=0; ii<els.length; ii++) {
 			// Note the ii+1 is because of header row
-			evdTableData.push( [trStats.tableDataTVD[ii+1]+0.0,els[ii]+0.0] );
+			evdTableData.push( [trStats.tableDataTVD[ii+1][0]+0.0,els[ii]+0.0] );
 		}
 
  		console.log("Showing trip elevation vs distance chart. Data is:");
