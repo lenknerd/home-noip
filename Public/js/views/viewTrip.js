@@ -236,10 +236,9 @@ app.views.ViewTripView = Marionette.View.extend({
 	showEVDgraph: function(els, trStats) {
 		console.log(els);	
 		// Construct table (2D array of data)
-		var evdTableData = [['Distance (mi)','Elevation (ft)']];
+		var evdTableData = [['Distance (mi)','Elevation (ft)']];	
 		for(var ii=0; ii<els.length; ii++) {
-			// Note the ii+1 is because of header row
-			evdTableData.push( [trStats.tableDataTVD[ii+1][0]+0.0,els[ii]+0.0] );
+			evdTableData.push( [trStats.pointDistancesInMi[ii]+0.0,els[ii]+0.0] );
 		}
 
  		console.log("Showing trip elevation vs distance chart. Data is:");
@@ -250,7 +249,7 @@ app.views.ViewTripView = Marionette.View.extend({
 		var eOptions = {
 			title: 'Elevation vs Distance',
 			hAxis: {title: 'Distance (mi)',  titleTextStyle: {color: '#333'}},
-			vAxis: {title: 'Elevation (ft)', minValue: -100.0}
+			vAxis: {title: 'Elevation (ft)'}
 		};
 
 		// Size up the chart div if not sized already (make same size as map)

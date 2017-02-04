@@ -62,10 +62,13 @@ var commutUtils = {
 		var totalMinutes = totalSeconds / 60.0;
 		/* Calculate trip total distance travelled (includes twists/turns) */
 		var totalDistanceMeters = 0.0;
+		// New - also grab list of D's, cumulative that is...
+		var dListMiles = [];
 		for(i = 0; i < nP-1; i++) {
 			var btw2pts = google.maps.geometry.spherical.computeDistanceBetween(
 				pts[i], pts[i+1] );
 			totalDistanceMeters += btw2pts;
+			dListMiles.push(totalDistanceMeters * 0.000621371);
 		}
 
 		// Time-average speed
@@ -100,7 +103,8 @@ var commutUtils = {
 			totalD_Meters: totalDistanceMeters,
 			totalDStraight_Meters: totalDStraightMeters,
 			tAvgV_MetersPerSec: tAvgdSpeedMetersPerSec,
-			tableDataTVD: tvdTableData
+			tableDataTVD: tvdTableData,
+			pointDistancesInMi: dListMiles
 		};
 	}
 
